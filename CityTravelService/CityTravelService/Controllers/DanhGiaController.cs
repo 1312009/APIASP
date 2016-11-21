@@ -10,7 +10,7 @@ namespace CityTravelService.Controllers
 {
     public class DanhGiaController : ApiController
     {
-        // GET: api/DanhGia
+        // GET api/danhgia
         public IEnumerable<DanhGia> Get()
         {
             DanhGiaDAO dgO = new DanhGiaDAO();
@@ -29,7 +29,7 @@ namespace CityTravelService.Controllers
             dg = dgO.getDsDanhGia(id).ToArray();
             if (dg.Length == 0)
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            
+
             return dg;
 
         }
@@ -55,7 +55,8 @@ namespace CityTravelService.Controllers
                 var response = Request.CreateResponse<DanhGia>(HttpStatusCode.Created, dg);
                 response.Headers.Location = new System.Uri(Request.RequestUri, "/api/DanhGia?email=" + dg.Email.ToString() + "&id=" + dg.IDAddress.ToString());
                 return response;
-            } else
+            }
+            else
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Error");
             }

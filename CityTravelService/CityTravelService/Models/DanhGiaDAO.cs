@@ -75,14 +75,16 @@ namespace CityTravelService.Models
 
         public bool insertDanhGia(DanhGia dg)
         {
-            try {
+            try
+            {
                 connect();
                 string insertCommand = "INSERT INTO DANHGIA (Email, MaTenDiaDiem, DanhGia) VALUES('"
                     + dg.Email + "', " + dg.IDAddress + ", " + dg.Rate + ")";
                 executeNonQuery(insertCommand);
                 disconnect();
                 return true;
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return false;
             }
@@ -93,12 +95,13 @@ namespace CityTravelService.Models
             try
             {
                 connect();
-                string updateCommand = "UPDATE DANHGIA SET DanhGia = " + dg.Rate + 
+                string updateCommand = "UPDATE DANHGIA SET DanhGia = " + dg.Rate +
                     " WHERE Email = '" + dg.Email + "' AND MaTenDiaDiem = " + dg.IDAddress;
                 executeNonQuery(updateCommand);
                 disconnect();
                 return true;
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return false;
             }

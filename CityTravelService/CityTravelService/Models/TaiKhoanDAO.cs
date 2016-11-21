@@ -50,7 +50,7 @@ namespace CityTravelService.Models
         {
             TaiKhoan tk = new TaiKhoan();
             tk.Email = dt.Rows[i]["Email"].ToString();
-            tk.PassWord = dt.Rows[i]["MatKhau"].ToString();
+            tk.MatKhau = dt.Rows[i]["MatKhau"].ToString();
             tk.LastName = dt.Rows[i]["Ho"].ToString();
             tk.FirtName = dt.Rows[i]["Ten"].ToString();
             tk.Phone = dt.Rows[i]["SDT"].ToString();
@@ -69,7 +69,7 @@ namespace CityTravelService.Models
                 connect();
                 string insertCommand = "INSERT INTO TAIKHOAN VALUES('" +
                     tk.Email + "', '" +
-                    tk.PassWord + "', N'" +
+                    tk.MatKhau + "', N'" +
                     tk.LastName + "', N'" +
                     tk.FirtName + "', N'" +
                     tk.Phone + "', " +
@@ -93,7 +93,7 @@ namespace CityTravelService.Models
             {
                 connect();
                 string updateCommand = "UPDATE TAIKHOAN SET Email = '" + tk.Email +
-                    "', MatKhau = '" + tk.PassWord +
+                    "', MatKhau = '" + tk.MatKhau +
                     "', Ho = N'" + tk.LastName +
                     "', Ten = N'" + tk.FirtName +
                     "', SDT = N'" + tk.Phone +
@@ -111,8 +111,8 @@ namespace CityTravelService.Models
                 return false;
             }
         }
-        
-        public void deleteTaiKhoan (string Email)
+
+        public void deleteTaiKhoan(string Email)
         {
             connect();
             string deleteCommand = "DELETE FROM TAIKHOAN WHERE Email = '" + Email + "'";

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
 
 namespace CityTravelService.Models
 {
@@ -20,7 +22,7 @@ namespace CityTravelService.Models
             foreach(Object o in ls) {
                 arr.Add((DichVu)o);
             }
-            disconnect();
+
             return arr;
         }
 
@@ -47,34 +49,68 @@ namespace CityTravelService.Models
             DichVu dv = new DichVu();
             dv.ID = (int)dt.Rows[i]["MaDichVu"];
             dv.Name = dt.Rows[i]["TenDichVu"].ToString();
-            dv.Picture = dt.Rows[i]["Hinh"].ToString();
+            dv.Hinh = dt.Rows[i]["Hinh"].ToString();
 
             return (object)dv;
         }
 
-        public void insertDichVu(DichVu dv)
+        public bool insertDichVu(DichVu dv)
         {
-            connect();
-            string insertCommand = "INSERT INTO DICHVU (TenDichVu, Hinh) VALUES('" + dv.Name + "', '" + dv.Picture + "')";
-            executeNonQuery(insertCommand);
-            disconnect();
+            try
+            {
+                connect();
+                string insertCommand = "INSERT INTO DICHVU VALUES(N'" +
+                    dv.Name + "', '" +
+                    dv.Hinh + "')";
+                executeNonQuery(insertCommand);
+                disconnect();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
         }
 
-        public void updateDichVu(DichVu dv)
+        public bool updateDichVu(DichVu dv)
         {
-            connect();
-            string updateCommand = "UPDATE DICHVU SET TenDichVu = '" + dv.Name +
-                "', Hinh = '" + dv.Picture +  "' WHERE MaDichVu = " + dv.ID;
-            executeNonQuery(updateCommand);
-            disconnect();
+            try
+            {
+                connect();
+                //string updateCommand = "UPDATE DICHVU SET TenDichVu = N'" + dv.Name +
+                //    "', Hinh = '" + dv.Hinh + "' WHERE MaDichVu = " + dv.ID;
+
+                string updateCommand = string.Format("UPDATE DICHVU SET TenDichVu = N'" + dv.Name +
+                    "', Hinh = '" + dv.Hinh + "' WHERE MaDichVu = " + dv.ID);
+
+                executeNonQuery(updateCommand);
+                disconnect();
+                return true;
+
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
-        public void deleteDichVu(int id)
+        public bool deleteDichVu(int id)
         {
-            connect();
-            string deleteCommand = "DELETE FROM DICHVU WHERE MaDichVu = " + id;
-            executeNonQuery(deleteCommand);
-            disconnect();
+            try
+            {
+                connect();
+                //string deleteCommand = "DELETE FROM DICHVU WHERE MaDichVu=" + id;
+                string deleteCommand = string.Format("DELETE FROM DICHVU WHERE [MaDichVu]= '{0}'", id);
+                executeNonQuery(deleteCommand);
+                disconnect();
+                return true;
+            }
+
+            catch (Exception e)
+            {
+                return false;
+            }
         }
     }
 }
