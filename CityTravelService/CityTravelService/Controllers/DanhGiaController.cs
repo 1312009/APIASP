@@ -27,8 +27,8 @@ namespace CityTravelService.Controllers
 
             DanhGia[] dg = new DanhGia[dgO.getDsDanhGia(id).Count];
             dg = dgO.getDsDanhGia(id).ToArray();
-            if (dg.Length == 0)
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            //if (dg.Length == 0)
+            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
 
             return dg;
 
@@ -41,41 +41,43 @@ namespace CityTravelService.Controllers
 
             DanhGia[] dg = new DanhGia[dgO.getDanhGia(email, id).Count];
             dg = dgO.getDanhGia(email, id).ToArray();
-            if (dg.Length == 0)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+            //if (dg.Length == 0)
+            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             return dg[0];
         }
 
         // POST: api/DanhGia
-        public HttpResponseMessage Post([FromBody]DanhGia dg)
+        public bool Post([FromBody]DanhGia dg)
         {
             DanhGiaDAO dgO = new DanhGiaDAO();
-            if (dgO.insertDanhGia(dg))
-            {
-                var response = Request.CreateResponse<DanhGia>(HttpStatusCode.Created, dg);
-                response.Headers.Location = new System.Uri(Request.RequestUri, "/api/DanhGia?email=" + dg.Email.ToString() + "&id=" + dg.IDAddress.ToString());
-                return response;
-            }
-            else
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Error");
-            }
+            return dgO.insertDanhGia(dg);
+            //if (dgO.insertDanhGia(dg))
+            //{
+            //    var response = Request.CreateResponse<DanhGia>(HttpStatusCode.Created, dg);
+            //    response.Headers.Location = new System.Uri(Request.RequestUri, "/api/DanhGia?email=" + dg.Email.ToString() + "&id=" + dg.IDAddress.ToString());
+            //    return response;
+            //}
+            //else
+            //{
+            //    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Error");
+            //}
         }
 
         // PUT: api/DanhGia/5
-        public HttpResponseMessage Put([FromBody]DanhGia dg)
+        public bool Put([FromBody]DanhGia dg)
         {
             DanhGiaDAO dgO = new DanhGiaDAO();
-            if (dgO.updateDanhGia(dg))
-            {
-                var response = Request.CreateResponse<DanhGia>(HttpStatusCode.Created, dg);
-                response.Headers.Location = new System.Uri(Request.RequestUri, "/api/DanhGia?email=" + dg.Email.ToString() + "&id=" + dg.IDAddress.ToString());
-                return response;
-            }
-            else
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Error");
-            }
+            return dgO.updateDanhGia(dg);
+            //if (dgO.updateDanhGia(dg))
+            //{
+            //    var response = Request.CreateResponse<DanhGia>(HttpStatusCode.Created, dg);
+            //    response.Headers.Location = new System.Uri(Request.RequestUri, "/api/DanhGia?email=" + dg.Email.ToString() + "&id=" + dg.IDAddress.ToString());
+            //    return response;
+            //}
+            //else
+            //{
+            //    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Error");
+            //}
         }
 
         // DELETE: api/DanhGia?email=example@gmail.com&id=1217

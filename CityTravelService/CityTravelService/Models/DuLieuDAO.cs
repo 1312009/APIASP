@@ -1,4 +1,4 @@
-﻿using CityTravelService.Entity;
+﻿using CityTravelService.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,9 +9,9 @@ using System.Web;
 
 namespace CityTravelService.Models
 {
-    public class DULIEU_DAO : DataProvider
+    public class DuLieuDAO : DataProvider
     {
-        public List<DULIEU> get_Ds_DuLieu()
+        public List<DuLieu> get_Ds_DuLieu()
         {
             connect();
             string query = "SELECT * FROM DULIEU";
@@ -19,16 +19,16 @@ namespace CityTravelService.Models
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
             ArrayList ls = ConvertDataSetToArrayList(dataset);
-            List<DULIEU> arr = new List<DULIEU>();
+            List<DuLieu> arr = new List<DuLieu>();
             foreach (Object o in ls)
             {
-                arr.Add((DULIEU)o);
+                arr.Add((DuLieu)o);
             }
             disconnect();
             return arr;
         }
 
-        public List<DULIEU> getDuLieu(int MaTenDiaDiem)
+        public List<DuLieu> getDuLieu(int MaTenDiaDiem)
         {
             connect();
             string query = "SELECT * FROM DULIEU WHERE MaTenDiaDiem = " + MaTenDiaDiem;
@@ -36,15 +36,15 @@ namespace CityTravelService.Models
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
             ArrayList ls = ConvertDataSetToArrayList(dataset);
-            List<DULIEU> arr = new List<DULIEU>();
+            List<DuLieu> arr = new List<DuLieu>();
             foreach (Object o in ls)
             {
-                arr.Add((DULIEU)o);
+                arr.Add((DuLieu)o);
             }
             return arr;
         }
 
-        public List<DULIEU> get_DuLieu(int ma_dulieu)
+        public List<DuLieu> get_DuLieu(int ma_dulieu)
         {
             connect();
             string query = "SELECT * FROM DULIEU where MaDuLieu = " + ma_dulieu;
@@ -52,10 +52,10 @@ namespace CityTravelService.Models
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
             ArrayList ls = ConvertDataSetToArrayList(dataset);
-            List<DULIEU> arr = new List<DULIEU>();
+            List<DuLieu> arr = new List<DuLieu>();
             foreach (Object o in ls)
             {
-                arr.Add((DULIEU)o);
+                arr.Add((DuLieu)o);
             }
             return arr;
         }
@@ -64,7 +64,7 @@ namespace CityTravelService.Models
         {
             int danhgia = 0;
             string mabinhluan = "";
-            DULIEU dl = new DULIEU();
+            DuLieu dl = new DuLieu();
             dl.MaDuLieu = (int)dt.Rows[i]["MaDuLieu"];
             dl.MaDichVu = (int)dt.Rows[i]["MaDichVu"];
             dl.MaTenDiaDiem = (int)dt.Rows[i]["MaTenDiaDiem"];
@@ -84,7 +84,7 @@ namespace CityTravelService.Models
             return (object)dl;
         }
 
-        public bool insert_DuLieu(DULIEU dl)
+        public bool insert_DuLieu(DuLieu dl)
         {
             connect();
             try

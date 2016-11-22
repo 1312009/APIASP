@@ -1,31 +1,14 @@
-namespace CityTravelService.Entity
+namespace CityTravelService.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
-    [Table("CHITIETDICHVU")]
-    public partial class CHITIETDICHVU
+    public class ChiTietDichVu
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CHITIETDICHVU()
-        {
-            DULIEUx = new HashSet<DULIEU>();
-        }
-
-        [Key]
-        public int MaChiTiet { get; set; }
-
-        [StringLength(255)]
-        public string Ten { get; set; }
-
-        public int? GiaTien { get; set; }
-
-        [Column(TypeName = "ntext")]
-        public string ChuThich { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DULIEU> DULIEUx { get; set; }
+        public int ma_dulieu { get; set; }
+        public string ten_dichvu { get; set; }
+        public string ten_diadiem { get; set; }
+        public string sonha { get; set; }
+        public string tenduong { get; set; }
+        public string tenphuong { get; set; }
+        public string tenquanhuyen { get; set; }
+        public string tentinhthanh { get; set; }
     }
 }

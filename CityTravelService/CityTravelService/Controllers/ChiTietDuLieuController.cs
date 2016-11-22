@@ -11,21 +11,21 @@ namespace CityTravelService.Controllers
     public class ChiTietDuLieuController : ApiController
     {
 
-        CHITIET_DULIEU ChiTiet_DuLieu;
+        ChiTietDichVuDAO ChiTiet_DuLieu;
         // GET api/chitietdulieu
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
-        public IEnumerable<CHITIET_DULIEU> Get(int ma_dulieu)
-        {
-            ChiTiet_DuLieu = new CHITIET_DULIEU();
-            CHITIET_DULIEU[] chitiet = new CHITIET_DULIEU[ChiTiet_DuLieu.get_DuLieu_ChiTiet(ma_dulieu).Count];
-            chitiet = ChiTiet_DuLieu.get_DuLieu_ChiTiet(ma_dulieu).ToArray();
-            if (chitiet.Length == 0)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            return chitiet;
-        }
+        //public IEnumerable<ChiTietDichVuDAO> Get(int ma_dulieu)
+        //{
+        //    ChiTiet_DuLieu = new ChiTietDichVuDAO();
+        //    ChiTietDichVuDAO[] chitiet = new ChiTietDichVuDAO[ChiTiet_DuLieu.get_DuLieu_ChiTiet(ma_dulieu).Count];
+        //    chitiet = ChiTiet_DuLieu.get_DuLieu_ChiTiet(ma_dulieu).ToArray();
+        //    if (chitiet.Length == 0)
+        //        throw new HttpResponseException(HttpStatusCode.NotFound);
+        //    return chitiet;
+        //}
         // GET api/chitietdulieu/5
         
         // POST api/chitietdulieu

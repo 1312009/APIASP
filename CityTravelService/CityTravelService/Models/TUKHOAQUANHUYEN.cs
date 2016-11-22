@@ -1,22 +1,9 @@
-namespace CityTravelService.Entity
+namespace CityTravelService.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
-    [Table("TUKHOAQUANHUYEN")]
-    public partial class TUKHOAQUANHUYEN
+    public partial class TuKhoaQuanHuyen
     {
-        [Key]
         public int MaTuKhoaQuanHuyen { get; set; }
-
-        [Column("TuKhoaQuanHuyen")]
-        [StringLength(64)]
         public string TuKhoaQuanHuyen1 { get; set; }
-
-        public int? MaQuanHuyen { get; set; }
-
-        public virtual QUANHUYEN QUANHUYEN { get; set; }
+        public int MaQuanHuyen { get; set; }
     }
 }

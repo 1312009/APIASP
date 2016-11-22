@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -146,32 +147,33 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\BINHLUAN.cs" />
+    <Compile Include="Models\BinhLuan.cs" />
     <Compile Include="Models\BinhLuanDAO.cs" />
-    <Compile Include="Models\CHITIETDICHVU.cs" />
-    <Compile Include="Models\CHITIET_DULIEU.cs" />
+    <Compile Include="Models\ChiTietDichVu.cs" />
+    <Compile Include="Models\ChiTietDichVuDAO.cs" />
     <Compile Include="Models\DanhGia.cs" />
     <Compile Include="Models\DanhGiaDAO.cs" />
     <Compile Include="Models\DataProvider.cs" />
+    <Compile Include="Models\DiaDiem.cs" />
     <Compile Include="Models\DiaDiemDAO.cs" />
     <Compile Include="Models\DichVu.cs" />
     <Compile Include="Models\DichVuDAO.cs" />
-    <Compile Include="Models\DULIEU.cs" />
-    <Compile Include="Models\DULIEU_DAO.cs" />
-    <Compile Include="Models\DUONG.cs" />
-    <Compile Include="Models\PHUONG.cs" />
-    <Compile Include="Models\QUANHUYEN.cs" />
-    <Compile Include="Models\TAIKHOAN.cs" />
+    <Compile Include="Models\DuLieu.cs" />
+    <Compile Include="Models\DuLieuDAO.cs" />
+    <Compile Include="Models\Duong.cs" />
+    <Compile Include="Models\Phuong.cs" />
+    <Compile Include="Models\QuanHuyen.cs" />
+    <Compile Include="Models\TaiKhoan.cs" />
     <Compile Include="Models\TaiKhoanDAO.cs" />
-    <Compile Include="Models\TENDIADIEM.cs" />
-    <Compile Include="Models\TINHTHANH.cs" />
-    <Compile Include="Models\TUKHOADIADIEM.cs" />
-    <Compile Include="Models\TUKHOADICHVU.cs" />
+    <Compile Include="Models\TenDiaDiem.cs" />
+    <Compile Include="Models\TinhThanh.cs" />
+    <Compile Include="Models\TuKhoaDiaDiem.cs" />
+    <Compile Include="Models\TuKhoaDichVu.cs" />
     <Compile Include="Models\TuKhoaDichVuDAO.cs" />
-    <Compile Include="Models\TUKHOADUONG.cs" />
-    <Compile Include="Models\TUKHOAPHUONG.cs" />
-    <Compile Include="Models\TUKHOAQUANHUYEN.cs" />
-    <Compile Include="Models\TUKHOATINHTHANH.cs" />
+    <Compile Include="Models\TuKhoaDuong.cs" />
+    <Compile Include="Models\TuKhoaPhuong.cs" />
+    <Compile Include="Models\TuKhoaQuanHuyen.cs" />
+    <Compile Include="Models\TuKhoaTinhThanh.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
