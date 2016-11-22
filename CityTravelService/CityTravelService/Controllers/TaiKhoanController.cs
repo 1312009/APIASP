@@ -43,25 +43,20 @@ namespace CityTravelService.Controllers
         // GET: 
         [Route("")]
         [HttpGet]
-        public TaiKhoan Get(string email, string password)
+        public bool Get(string email, string password)
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
 
             TaiKhoan[] tk = new TaiKhoan[tkO.getTaiKhoan(email, password).Count];
             tk = tkO.getTaiKhoan(email, password).ToArray();
-            return tk[0];
-            //if (tk.Length == 0)
-            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            //if (tk[0].PassWord == password)
-            //{
-            //    var response = Request.CreateResponse<bool>(HttpStatusCode.Created, true);
-            //    return response;
-            //}
-            //else
-            //{
-            //    var response = Request.CreateResponse<bool>(HttpStatusCode.Created, false);
-            //    return response;
-            //}
+            if(tk==null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
 
         }
         #endregion
