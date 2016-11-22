@@ -111,7 +111,22 @@ namespace CityTravelService.Models
                 return false;
             }
         }
-
+        public bool updatePassword(string pass, string Email)
+        {
+            try
+            {
+                connect();
+                string updateCommand = "UPDATE TAIKHOAN SET MatKhau = '" + pass +
+                    "' WHERE Email = '" + Email + "'";
+                executeNonQuery(updateCommand);
+                disconnect();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public void deleteTaiKhoan(string Email)
         {
             connect();
