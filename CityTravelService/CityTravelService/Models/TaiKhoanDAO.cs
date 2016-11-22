@@ -47,7 +47,7 @@ namespace CityTravelService.Models
             return arr;
         }
 
-        public List<TaiKhoan> getTaiKhoan(string email, string password)
+        public TaiKhoan getTaiKhoan(string email, string password)
         {
             connect();
             string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + email + "' AND MatKhau = '" + password + "'";
@@ -55,10 +55,11 @@ namespace CityTravelService.Models
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
             ArrayList ls = ConvertDataSetToArrayList(dataset);
-            List<TaiKhoan> arr = new List<TaiKhoan>();
+            TaiKhoan arr = new TaiKhoan();
             foreach (Object o in ls)
             {
-                arr.Add((TaiKhoan)o);
+                arr = (TaiKhoan)o;
+                break;
             }
 
             disconnect();

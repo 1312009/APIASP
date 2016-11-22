@@ -47,9 +47,9 @@ namespace CityTravelService.Controllers
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
 
-            TaiKhoan[] tk = new TaiKhoan[tkO.getTaiKhoan(email, password).Count];
-            tk = tkO.getTaiKhoan(email, password).ToArray();
-            if(tk==null)
+            TaiKhoan tk;
+            tk = tkO.getTaiKhoan(email, password);
+            if(tk.Email==null)
             {
                 return false;
             }
