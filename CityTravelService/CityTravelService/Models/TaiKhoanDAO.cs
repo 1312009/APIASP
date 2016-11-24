@@ -147,6 +147,40 @@ namespace CityTravelService.Models
                 return false;
             }
         }
+
+        public bool changePassword(string email,string passwordold,string passwordnew)
+        {
+            try
+            {
+                connect();
+                string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + email + "' AND MatKhau = '" + passwordold + "'";
+                adapter = new SqlDataAdapter(query, connection);
+                DataSet dataset = new DataSet();
+                adapter.Fill(dataset);
+                ArrayList ls = ConvertDataSetToArrayList(dataset);
+                TaiKhoan arr = new TaiKhoan();
+                foreach (Object o in ls)
+                {
+                    arr = (TaiKhoan)o;
+                }
+                if (arr.Email != null)
+                {
+                    string updateCommand = "UPDATE TAIKHOAN SET MatKhau = '" + passwordnew +
+                       "' WHERE Email = '" + email + "'";
+                    executeNonQuery(updateCommand);
+                    disconnect();
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
         public bool deleteTaiKhoan(string Email)
         {
             try

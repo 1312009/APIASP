@@ -87,6 +87,14 @@ namespace CityTravelService.Controllers
             response.Headers.Location = new System.Uri(Request.RequestUri, "/api/TaiKhoan/" + tk.Email.ToString());*/
             return tkO.updateTaiKhoan(tk);
         }
+        [Route("ChangPassword")]
+        [HttpPut]
+        public bool  ChangPassword(string email,string passwordold,string passwordnew)
+        {
+            TaiKhoanDAO tk0 = new TaiKhoanDAO();
+            return tk0.changePassword(email, passwordold, passwordnew);
+
+        }
         #endregion
 
         #region DELETE
