@@ -13,8 +13,6 @@ namespace CityTravelService
     {
         public static void Register(HttpConfiguration config)
         {
-            var cors = new EnableCorsAttribute("http://localhost:8080/", "*", "*");
-            config.EnableCors(cors);
             config.Formatters.JsonFormatter.SupportedMediaTypes
                 .Add(new MediaTypeHeaderValue("text/html"));
             // Web API configuration and services
