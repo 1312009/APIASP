@@ -148,7 +148,7 @@ namespace CityTravelService.Models
             }
         }
 
-        public bool changePassword(string email,string passwordold,string passwordnew)
+        public bool changePassword(string email, string passwordold, string passwordnew)
         {
             try
             {
@@ -190,7 +190,8 @@ namespace CityTravelService.Models
                 executeNonQuery(deleteCommand);
                 disconnect();
                 return true;
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return false;
             }

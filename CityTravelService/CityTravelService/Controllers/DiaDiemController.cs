@@ -32,20 +32,36 @@ namespace CityTravelService.Controllers
 
 
         // GET: api/DiaDiem
-        public HttpResponseMessage Get()
+        public IEnumerable<DiaDiem> Get()
         {
-            //try
-            //{
+            try
+            {
                 DiaDiemDAO ddO = new DiaDiemDAO();
                 DiaDiem[] result = new DiaDiem[ddO.getDsDiaDiem().Count];
                 result = ddO.getDsDiaDiem().ToArray();
+                //var response = Request.CreateResponse<IEnumerable<DiaDiem>>(HttpStatusCode.Created, result);
+                return result;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        public HttpResponseMessage Get(string str)
+        {
+            try
+            {
+                DiaDiemDAO ddO = new DiaDiemDAO();
+                DiaDiem[] result = new DiaDiem[ddO.getDsDiaDiem(str).Count];
+                result = ddO.getDsDiaDiem(str).ToArray();
                 var response = Request.CreateResponse<IEnumerable<DiaDiem>>(HttpStatusCode.Created, result);
                 return response;
-            //}
-            //catch (Exception e)
-            //{
-            //    return new HttpResponseMessage(HttpStatusCode.NotFound);
-            //}
+            }
+            catch (Exception e)
+            {
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
+            }
         }
 
         //GET: api/DiaDiem/5
@@ -56,5 +72,7 @@ namespace CityTravelService.Controllers
         //    var response = Request.CreateResponse<bool>(HttpStatusCode.Created, result);
         //    return response;
         //}
+
+
     }
 }

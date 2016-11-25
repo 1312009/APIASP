@@ -13,7 +13,7 @@ namespace CityTravelService.Models
         public List<DichVu> getDsDichVu()
         {
             connect();
-            string query = "SELECT * FROM DICHVU";
+            string query = "SELECT* FROM TENDIADIEM JOIN DULIEU ON TENDIADIEM.MaTenDiaDiem = DULIEU.MaTenDiaDiem JOIN DUONG ON DUONG.MaDuong = DULIEU.MaDuong JOIN PHUONG ON PHUONG.MaPhuong = DULIEU.MaPhuong JOIN QUANHUYEN ON QUANHUYEN.MaQuanHuyen = DULIEU.MaQuanHuyen JOIN TINHTHANH ON TINHTHANH.MaTinhThanh = DULIEU.MaTinhThanh JOIN DICHVU ON DICHVU.MaDichVu = DULIEU.MaDichVu";
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
@@ -29,7 +29,7 @@ namespace CityTravelService.Models
         public List<DichVu> getDsDichVu(int id)
         {
             connect();
-            string query = "SELECT * FROM DICHVU WHERE MaDichVu = " + id;
+            string query = "SELECT* FROM TENDIADIEM JOIN DULIEU ON TENDIADIEM.MaTenDiaDiem = DULIEU.MaTenDiaDiem JOIN DUONG ON DUONG.MaDuong = DULIEU.MaDuong JOIN PHUONG ON PHUONG.MaPhuong = DULIEU.MaPhuong JOIN QUANHUYEN ON QUANHUYEN.MaQuanHuyen = DULIEU.MaQuanHuyen JOIN TINHTHANH ON TINHTHANH.MaTinhThanh = DULIEU.MaTinhThanh JOIN DICHVU ON DICHVU.MaDichVu = DULIEU.MaDichVu WHERE DICHVU.MaDichVu = " + id;
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
@@ -46,22 +46,35 @@ namespace CityTravelService.Models
 
         protected override object GetDataFromDataRow(DataTable dt, int i)
         {
-            DichVu dv = new DichVu();
-            dv.ID = (int)dt.Rows[i]["MaDichVu"];
-            dv.Name = dt.Rows[i]["TenDichVu"].ToString();
-            dv.Hinh = dt.Rows[i]["Hinh"].ToString();
+            DichVu dd = new DichVu();
+            dd.ID = (int)dt.Rows[i]["MaDichVu"];
+            dd.Name = dt.Rows[i]["TenDichVu"].ToString();
+            dd.Hinh = dt.Rows[i]["Hinh"].ToString();
 
-            return (object)dv;
+            dd.dulieu.MaDuLieu = dt.Rows[i].IsNull("MaDuLieu") ? 0 : (int)dt.Rows[i]["MaDuLieu"];
+            dd.dulieu.MaDichVu = dt.Rows[i].IsNull("MaDichVu") ? 0 : (int)dt.Rows[i]["MaDichVu"];
+            dd.dulieu.MaTenDiaDiem = dt.Rows[i].IsNull("MaTenDiaDiem") ? 0 : (int)dt.Rows[i]["MaTenDiaDiem"];
+            dd.dulieu.SoNha = dt.Rows[i]["SoNha"].ToString();
+            dd.dulieu.MaDuong = dt.Rows[i].IsNull("MaDuong") ? 0 : (int)dt.Rows[i]["MaDuong"];
+            dd.dulieu.MaPhuong = dt.Rows[i].IsNull("MaPhuong") ? 0 : (int)dt.Rows[i]["MaPhuong"];
+            dd.dulieu.MaQuanHuyen = dt.Rows[i].IsNull("MaQuanHuyen") ? 0 : (int)dt.Rows[i]["MaQuanHuyen"];
+            dd.dulieu.MaTinhThanh = dt.Rows[i].IsNull("MaTinhThanh") ? 0 : (int)dt.Rows[i]["MaTinhThanh"];
+            dd.dulieu.KinhDo = dt.Rows[i].IsNull("KinhDo") ? 0.0f : (double)dt.Rows[i]["KinhDo"];
+            dd.dulieu.ViDo = dt.Rows[i].IsNull("ViDo") ? 0.0f : (double)dt.Rows[i]["ViDo"];
+            dd.dulieu.ChuThich = dt.Rows[i]["ChuThich"].ToString();
+            dd.dulieu.DanhGia = dt.Rows[i].IsNull("DanhGia") ? 0 : (int)dt.Rows[i]["DanhGia"];
+
+            return (object)dd;
         }
 
-        public bool insertDichVu(DichVu dv)
+        public bool insertDichVu(DichVu dd)
         {
             try
             {
                 connect();
                 string insertCommand = "INSERT INTO DICHVU VALUES(N'" +
-                    dv.Name + "', '" +
-                    dv.Hinh + "')";
+                    dd.Name + "', '" +
+                    dd.Hinh + "')";
                 executeNonQuery(insertCommand);
                 disconnect();
                 return true;
@@ -73,16 +86,16 @@ namespace CityTravelService.Models
 
         }
 
-        public bool updateDichVu(DichVu dv)
+        public bool updateDichVu(DichVu dd)
         {
             try
             {
                 connect();
-                //string updateCommand = "UPDATE DICHVU SET TenDichVu = N'" + dv.Name +
-                //    "', Hinh = '" + dv.Hinh + "' WHERE MaDichVu = " + dv.ID;
+                //string updateCommand = "UPDATE DICHVU SET TenDichVu = N'" + dd.Name +
+                //    "', Hinh = '" + dd.Hinh + "' WHERE MaDichVu = " + dd.ID;
 
-                string updateCommand = string.Format("UPDATE DICHVU SET TenDichVu = N'" + dv.Name +
-                    "', Hinh = '" + dv.Hinh + "' WHERE MaDichVu = " + dv.ID);
+                string updateCommand = string.Format("UPDATE DICHVU SET TenDichVu = N'" + dd.Name +
+                    "', Hinh = '" + dd.Hinh + "' WHERE MaDichVu = " + dd.ID);
 
                 executeNonQuery(updateCommand);
                 disconnect();

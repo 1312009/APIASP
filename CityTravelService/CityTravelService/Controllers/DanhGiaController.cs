@@ -21,17 +21,26 @@ namespace CityTravelService.Controllers
         }
 
         // GET: api/DanhGia/5
-        public IEnumerable<DanhGia> Get(int id)
+        //public IEnumerable<DanhGia> Get(int id)
+        //{
+        //    DanhGiaDAO dgO = new DanhGiaDAO();
+
+        //    DanhGia[] dg = new DanhGia[dgO.getDsDanhGia(id).Count];
+        //    dg = dgO.getDsDanhGia(id).ToArray();
+        //    //if (dg.Length == 0)
+        //    //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+
+        //    return dg;
+
+        //}
+
+        public float Get(int madiadiem)
         {
             DanhGiaDAO dgO = new DanhGiaDAO();
 
-            DanhGia[] dg = new DanhGia[dgO.getDsDanhGia(id).Count];
-            dg = dgO.getDsDanhGia(id).ToArray();
+            return dgO.getDanhGia(madiadiem);
             //if (dg.Length == 0)
             //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-
-            return dg;
-
         }
 
         // GET: api/DanhGia?email=example@gmail.com&id=1217

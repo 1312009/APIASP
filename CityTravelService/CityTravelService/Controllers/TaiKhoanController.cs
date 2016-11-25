@@ -33,7 +33,7 @@ namespace CityTravelService.Controllers
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             TaiKhoan tk = new TaiKhoan();
-            tk =tkO.getTaiKhoan(email);
+            tk = tkO.getTaiKhoan(email);
             //if (tk.Length == 0)
             //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             return tk;
@@ -49,7 +49,7 @@ namespace CityTravelService.Controllers
 
             TaiKhoan tk;
             tk = tkO.getTaiKhoan(email, password);
-            if(tk.Email==null)
+            if (tk.Email == null)
             {
                 return false;
             }
@@ -89,7 +89,7 @@ namespace CityTravelService.Controllers
         }
         [Route("ChangPassword")]
         [HttpPut]
-        public bool  ChangPassword(string email,string passwordold,string passwordnew)
+        public bool ChangPassword(string email, string passwordold, string passwordnew)
         {
             TaiKhoanDAO tk0 = new TaiKhoanDAO();
             return tk0.changePassword(email, passwordold, passwordnew);
@@ -127,7 +127,7 @@ namespace CityTravelService.Controllers
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             TaiKhoan tk = new TaiKhoan();
             tk = tkO.getTaiKhoan(email);
-            if (tk==null)
+            if (tk == null)
                 return false;
             tkO.updatePassword(temp, email);
             return true;

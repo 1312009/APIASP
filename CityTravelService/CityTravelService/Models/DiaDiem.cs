@@ -2,6 +2,7 @@
 {
     public class DiaDiem
     {
+        public DichVu dichvu;
         public TenDiaDiem ten;
         public Duong duong;
         public Phuong phuong;
@@ -10,6 +11,7 @@
 
         public DiaDiem()
         {
+            dichvu = new DichVu();
             ten = new TenDiaDiem();
             duong = new Duong();
             phuong = new Phuong();
