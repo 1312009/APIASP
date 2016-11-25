@@ -2,6 +2,7 @@
 {
     public class DiaDiem
     {
+        public int MaDuLieu;
         public DichVu dichvu;
         public TenDiaDiem ten;
         public Duong duong;
