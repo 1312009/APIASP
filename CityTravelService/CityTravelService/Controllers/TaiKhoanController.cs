@@ -31,7 +31,6 @@ namespace CityTravelService.Controllers
         public IEnumerable<TaiKhoan> Get()
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
-
             TaiKhoan[] tk = new TaiKhoan[tkO.getDsTaiKhoan().Count];
             tk = tkO.getDsTaiKhoan().ToArray();
             return tk;
@@ -44,7 +43,7 @@ namespace CityTravelService.Controllers
         {
             if (Test() == false)
             {
-                return null;
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             TaiKhoan tk = new TaiKhoan();
@@ -75,7 +74,7 @@ namespace CityTravelService.Controllers
         {
             if (Test() == false)
             {
-                return false;
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
 
             TaiKhoanDAO tkO = new TaiKhoanDAO();
@@ -94,7 +93,7 @@ namespace CityTravelService.Controllers
         {
             if (Test() == false)
             {
-                return false;
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)); return false;
             }
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             //tkO.updateTaiKhoan(tk);
@@ -108,7 +107,7 @@ namespace CityTravelService.Controllers
         {
             if (Test() == false)
             {
-                return false;
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
             TaiKhoanDAO tk0 = new TaiKhoanDAO();
             return tk0.changePassword(email, passwordold, passwordnew);
@@ -123,7 +122,7 @@ namespace CityTravelService.Controllers
         {
             if (Test() == false)
             {
-                return false;
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             TaiKhoan tk = new TaiKhoan();
@@ -142,7 +141,7 @@ namespace CityTravelService.Controllers
         {
             if (Test() == false)
             {
-                return false;
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
             string temp = CreatePassword();
             MailMessage mailMessag = new MailMessage(ConfigurationManager.AppSettings.Get("Email"), email);

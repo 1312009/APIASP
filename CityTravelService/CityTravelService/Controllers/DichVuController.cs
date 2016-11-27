@@ -6,14 +6,27 @@ using System.Net.Http;
 using System.Web.Http;
 using CityTravelService.Models;
 using CityTravelService.Session;
+using System.Web;
 
 namespace CityTravelService.Controllers
 {
     public class DichVuController : ApiController
     {
+        public bool Test()
+        {
+            if (HttpContext.Current.Session.Count == 0 || HttpContext.Current.Session["UserOnline"] == null)
+            {
+                return false;
+            }
+            return true;
+        }
         // GET: api/DichVu
         public IEnumerable<DichVu> Get()
         {
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
             DichVuDAO ddO = new DichVuDAO();
 
             DichVu[] dd = new DichVu[ddO.getDsDichVu().Count];
@@ -24,6 +37,10 @@ namespace CityTravelService.Controllers
         // GET: api/DichVu/5
         public IEnumerable<DichVu> Get(int id)
         {
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
             DichVuDAO ddO = new DichVuDAO();
 
             DichVu[] dd = new DichVu[ddO.getDsDichVu(id).Count];

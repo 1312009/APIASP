@@ -4,11 +4,19 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using CityTravelService.Models;
-
+using System.Web;
 namespace CityTravelService.Controllers
 {
     public class DiaDiemController : ApiController
     {
+        public bool Test()
+        {
+            if (HttpContext.Current.Session.Count == 0 || HttpContext.Current.Session["UserOnline"] == null)
+            {
+                return false;
+            }
+            return true;
+        }
         // POST: api/DiaDiem
         //Them dia diem
         //public HttpResponseMessage Post([FromBody]TenDiaDiem tenDD)
@@ -34,6 +42,10 @@ namespace CityTravelService.Controllers
         // GET: api/DiaDiem
         public IEnumerable<DiaDiem> Get()
         {
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
             try
             {
                 DiaDiemDAO ddO = new DiaDiemDAO();
@@ -50,6 +62,10 @@ namespace CityTravelService.Controllers
 
         public HttpResponseMessage Get(string str)
         {
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
             try
             {
                 DiaDiemDAO ddO = new DiaDiemDAO();

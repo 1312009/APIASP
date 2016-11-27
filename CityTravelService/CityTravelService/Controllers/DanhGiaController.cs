@@ -4,15 +4,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace CityTravelService.Controllers
 {
     public class DanhGiaController : ApiController
     {
+        public bool Test()
+        {
+            if (HttpContext.Current.Session.Count == 0 || HttpContext.Current.Session["UserOnline"] == null)
+            {
+                return false;
+            }
+            return true;
+        }
         // GET api/danhgia
         public IEnumerable<DanhGia> Get()
         {
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
             DanhGiaDAO dgO = new DanhGiaDAO();
 
             DanhGia[] dg = new DanhGia[dgO.getDsDanhGia().Count];
@@ -36,6 +49,10 @@ namespace CityTravelService.Controllers
 
         public float Get(int madiadiem)
         {
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
             DanhGiaDAO dgO = new DanhGiaDAO();
 
             return dgO.getDanhGia(madiadiem);
@@ -46,6 +63,10 @@ namespace CityTravelService.Controllers
         // GET: api/DanhGia?email=example@gmail.com&id=1217
         public DanhGia Get(string email, int id)
         {
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
             DanhGiaDAO dgO = new DanhGiaDAO();
 
             DanhGia[] dg = new DanhGia[dgO.getDanhGia(email, id).Count];
@@ -58,6 +79,10 @@ namespace CityTravelService.Controllers
         // POST: api/DanhGia
         public bool Post([FromBody]DanhGia dg)
         {
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
             DanhGiaDAO dgO = new DanhGiaDAO();
             return dgO.insertDanhGia(dg);
             //if (dgO.insertDanhGia(dg))
@@ -75,6 +100,10 @@ namespace CityTravelService.Controllers
         // PUT: api/DanhGia/5
         public bool Put([FromBody]DanhGia dg)
         {
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
             DanhGiaDAO dgO = new DanhGiaDAO();
             return dgO.updateDanhGia(dg);
             //if (dgO.updateDanhGia(dg))
@@ -92,6 +121,10 @@ namespace CityTravelService.Controllers
         // DELETE: api/DanhGia?email=example@gmail.com&id=1217
         public bool Delete(string email, int id)
         {
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
             DanhGiaDAO dgO = new DanhGiaDAO();
             DanhGia[] dg = new DanhGia[dgO.getDanhGia(email, id).Count];
             dg = dgO.getDanhGia(email, id).ToArray();
