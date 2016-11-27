@@ -5,12 +5,14 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using CityTravelService.Models;
+using CityTravelService.Session;
 
 namespace CityTravelService.Controllers
 {
     public class DichVuController : ApiController
     {
         // GET: api/DichVu
+        [Auth(PerMissionName = "Admin")]
         public IEnumerable<DichVu> Get()
         {
             DichVuDAO ddO = new DichVuDAO();
@@ -21,6 +23,7 @@ namespace CityTravelService.Controllers
         }
 
         // GET: api/DichVu/5
+        [Auth(PerMissionName = "Admin")]
         public IEnumerable<DichVu> Get(int id)
         {
             DichVuDAO ddO = new DichVuDAO();
@@ -33,6 +36,7 @@ namespace CityTravelService.Controllers
         }
 
         // POST: api/DichVu
+        [Auth(PerMissionName = "Admin")]
         public void Post([FromBody]DichVu dd)
         {
             DichVuDAO dd0 = new DichVuDAO();
@@ -50,6 +54,7 @@ namespace CityTravelService.Controllers
         //}
 
         // PUT: api/DichVu/5
+        [Auth(PerMissionName = "Admin")]
         public void Put([FromBody]DichVu dd)
         {
             DichVuDAO dd0 = new DichVuDAO();
@@ -57,6 +62,7 @@ namespace CityTravelService.Controllers
         }
 
         // DELETE: api/DichVu/5
+        [Auth(PerMissionName = "Admin")]
         public void Delete(int id)
         {
             DichVuDAO dd0 = new DichVuDAO();

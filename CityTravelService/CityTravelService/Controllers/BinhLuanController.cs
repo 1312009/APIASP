@@ -1,4 +1,5 @@
 ﻿using CityTravelServer.Models;
+using CityTravelService.Session;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Web.Http;
 
 namespace CityTravelServer.Controllers
 {
+    [Auth(PerMissionName = "Admin")]
     public class BinhLuanController : ApiController
     {
         // GET: api/BinhLuan

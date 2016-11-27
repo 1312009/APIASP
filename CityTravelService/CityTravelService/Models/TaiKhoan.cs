@@ -16,6 +16,7 @@ namespace CityTravelService.Models
         public DateTime Birth { set; get; }
         public string Address { set; get; }
         public string Picture { set; get; }
-
+        public string Role { get; set; }
+       
     }
 }

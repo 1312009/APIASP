@@ -182,6 +182,7 @@
     <Compile Include="Models\TuKhoaTinhThanh.cs" />
     <Compile Include="Models\TuKhoaTraVe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Session\AuthAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

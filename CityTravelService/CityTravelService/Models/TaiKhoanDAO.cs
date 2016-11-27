@@ -49,6 +49,23 @@ namespace CityTravelService.Models
 
         public TaiKhoan getTaiKhoan(string email, string password)
         {
+            string result = "Null";
+           
+            if (HttpContext.Current.Session.Count > 0 && HttpContext.Current.Session["UserOnline"] != null && HttpContext.Current.Session["UserOnline"].ToString() == "On")
+            {
+                string type = "";
+                if (HttpContext.Current.Session["Auth"].ToString() == "Admin")
+                {
+                    type = "Admin";
+                }
+
+                else
+                {
+                    type = "Customer";
+                }
+                result = type;
+            }
+
             connect();
             string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + email + "' AND MatKhau = '" + password + "'";
             adapter = new SqlDataAdapter(query, connection);
@@ -61,7 +78,30 @@ namespace CityTravelService.Models
                 arr = (TaiKhoan)o;
                 break;
             }
+            try
+            {
+                if (arr.Email != null)
+                {
+                    HttpContext.Current.Session["AccountId"] = arr.Email;
+                    HttpContext.Current.Session["UserOnline"] = "On";
+                    if(arr.Role=="Admin")
+                    {
+                        HttpContext.Current.Session["Auth"] = "Admin";
+                      
+                    }
+                    else
+                    {
+                        HttpContext.Current.Session["Auth"] = "Customer";
+                    
+                    }
+                }
+                
+            }
+            catch (NotImplementedException implementedException)
+            {
 
+            }
+           
             disconnect();
             return arr;
         }
@@ -78,7 +118,7 @@ namespace CityTravelService.Models
             tk.Birth = (dt.Rows[i].IsNull("NgaySinh") == true) ? DateTime.Now : (DateTime)dt.Rows[i]["NgaySinh"];
             tk.Address = dt.Rows[i]["DiaChi"].ToString();
             tk.Picture = dt.Rows[i]["Hinh"].ToString();
-
+            tk.Role = dt.Rows[i]["Role"].ToString();
             return (object)tk;
         }
 
@@ -96,7 +136,8 @@ namespace CityTravelService.Models
                     tk.Sex + ", '" +
                     tk.Birth.Year + "-" + tk.Birth.Month + "-" + tk.Birth.Day + "', N'" +
                     tk.Address + "', '" +
-                    tk.Picture + "')";
+                    tk.Picture +"', '" +
+                    tk.Role + "')";
                 executeNonQuery(insertCommand);
                 disconnect();
                 return true;
@@ -121,6 +162,7 @@ namespace CityTravelService.Models
                     ", NgaySinh = '" + tk.Birth.Year + "-" + tk.Birth.Month + "-" + tk.Birth.Day +
                     "', DiaChi = N'" + tk.Address +
                     "', Hinh = '" + tk.Picture +
+                      "', Role = '" + tk.Role +
                     "' WHERE Email = '" + tk.Email + "'";
                 executeNonQuery(updateCommand);
                 disconnect();

@@ -7,14 +7,15 @@ using System.Net;
 using System;
 using System.Net.Mail;
 using System.Configuration;
+using CityTravelService.Session;
 
 namespace CityTravelService.Controllers
 {
-    [RoutePrefix("api/TaiKhoan")]
     public class TaiKhoanController : ApiController
     {
         #region GET
         // GET: api/TaiKhoan
+        [Auth(PerMissionName = "Admin")]
         [Route("")]
         [HttpGet]
         public IEnumerable<TaiKhoan> Get()
@@ -43,21 +44,12 @@ namespace CityTravelService.Controllers
         // GET: 
         [Route("")]
         [HttpGet]
-        public bool Get(string email, string password)
+        public TaiKhoan Get(string email, string password)
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
-
             TaiKhoan tk;
             tk = tkO.getTaiKhoan(email, password);
-            if(tk.Email==null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-
+            return tk;
         }
         #endregion
 
@@ -96,7 +88,7 @@ namespace CityTravelService.Controllers
 
         }
         #endregion
-
+        [Auth(PerMissionName = "Admin")]
         #region DELETE
         // DELETE: api/TaiKhoan/5
         [Route("")]
