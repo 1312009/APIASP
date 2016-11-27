@@ -42,7 +42,7 @@ namespace CityTravelServer.Controllers
         }
 
         // PUT: api/BinhLuan/5
-        public void Put([FromBody]BinhLuan bl)
+        public void Put([FromBody]string bl)
         {
             BinhLuanDAO bl0 = new BinhLuanDAO();
             bl0.updateBinhLuan(bl);

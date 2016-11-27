@@ -12,7 +12,6 @@ namespace CityTravelService.Controllers
     public class DichVuController : ApiController
     {
         // GET: api/DichVu
-        [Auth(PerMissionName = "Admin")]
         public IEnumerable<DichVu> Get()
         {
             DichVuDAO ddO = new DichVuDAO();
@@ -23,7 +22,6 @@ namespace CityTravelService.Controllers
         }
 
         // GET: api/DichVu/5
-        [Auth(PerMissionName = "Admin")]
         public IEnumerable<DichVu> Get(int id)
         {
             DichVuDAO ddO = new DichVuDAO();

@@ -80,14 +80,13 @@ namespace CityTravelServer.Models
 
         }
 
-        public bool updateBinhLuan(BinhLuan bl)
+        public bool updateBinhLuan(string mabinhluan)
         {
             try
             {
                 connect();
 
-                string updateCommand = string.Format("UPDATE BINHLUAN SET NoiDung = N'" + bl.NoiDung +
-                    "', ThoiGian = '" + bl.ThoiGian + "', TrangThai = " + bl.TrangThai + " WHERE MaBinhLuan = '" + bl.MaBinhLuan + "'");
+                string updateCommand = string.Format("UPDATE BINHLUAN SET TrangThai = '1' WHERE MaBinhLuan = '" + mabinhluan + "'");
 
                 executeNonQuery(updateCommand);
                 disconnect();
