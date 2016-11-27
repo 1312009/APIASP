@@ -50,6 +50,11 @@ namespace CityTravelService.Models
         public TaiKhoan getTaiKhoan(string email, string password)
         {
             string result = "Null";
+            if(string.IsNullOrEmpty(email)&& string.IsNullOrEmpty(password)&&
+                (HttpContext.Current.Session.Count == 0 || HttpContext.Current.Session["UserOnline"] == null))
+            {
+                return null;
+            }
            
             if (HttpContext.Current.Session.Count > 0 && HttpContext.Current.Session["UserOnline"] != null && HttpContext.Current.Session["UserOnline"].ToString() == "On")
             {
