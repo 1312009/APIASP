@@ -11,6 +11,7 @@ using CityTravelService.Session;
 
 namespace CityTravelService.Controllers
 {
+    [RoutePrefix("api/TaiKhoan")]
     public class TaiKhoanController : ApiController
     {
         #region GET
@@ -28,6 +29,7 @@ namespace CityTravelService.Controllers
         }
 
         // GET: api/TaiKhoan/5
+        [Auth(PerMissionName = "Customer")]
         [Route("")]
         [HttpGet]
         public TaiKhoan Get(string email)
@@ -55,6 +57,7 @@ namespace CityTravelService.Controllers
 
         #region POST
         // POST: api/TaiKhoan
+        [Auth(PerMissionName = "Customer")]
         [Route("")]
         [HttpPost]
         public bool Post([FromBody]TaiKhoan tk)
@@ -69,6 +72,7 @@ namespace CityTravelService.Controllers
 
         #region PUT
         // PUT: api/TaiKhoan/5
+        [Auth(PerMissionName = "Customer")]
         [Route("")]
         [HttpPut]
         public bool Put([FromBody]TaiKhoan tk)
@@ -79,6 +83,7 @@ namespace CityTravelService.Controllers
             response.Headers.Location = new System.Uri(Request.RequestUri, "/api/TaiKhoan/" + tk.Email.ToString());*/
             return tkO.updateTaiKhoan(tk);
         }
+        [Auth(PerMissionName = "Customer")]
         [Route("ChangPassword")]
         [HttpPut]
         public bool  ChangPassword(string email,string passwordold,string passwordnew)
