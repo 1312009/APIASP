@@ -35,7 +35,19 @@ namespace CityTravelService.Controllers
             tk = tkO.getDsTaiKhoan().ToArray();
             return tk;
         }
-
+        [Route("Logout")]
+        [HttpGet]
+        public bool Logout()
+        {
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
+            HttpContext.Current.Session["AccountId"] = null;
+            HttpContext.Current.Session["UserOnline"] = null;
+            HttpContext.Current.Session["Auth"] = null;
+            return true;
+        }
         // GET: api/TaiKhoan/5
         [Route("")]
         [HttpGet]
