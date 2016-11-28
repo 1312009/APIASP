@@ -6,11 +6,12 @@ using System.Net.Http;
 using System.Web.Http;
 
 using CityTravelService.Models;
+using CityTravelService.Session;
 
 namespace CityTravelService.Controllers
 {
 	[Auth(PerMissionName = "Admin")]
-    public class DiaDiemController : ApiController
+    public class TenDiaDiemController : ApiController
     {
         // POST: api/TenDiaDiem
         //Them dia diem
