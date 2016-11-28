@@ -124,5 +124,13 @@ namespace CityTravelService.Models
             disconnect();
         }
 
+        public void deleteTuKhoaDiaDiemByMaDiaDiem(int maDD)
+        {
+            connect();
+            string deleteCommand = "DELETE FROM TUKHOADIADIEM WHERE MaDiaDiem = " + maDD;
+            executeNonQuery(deleteCommand);
+            disconnect();
+        }
+
     }
 }
