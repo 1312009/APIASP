@@ -84,11 +84,6 @@ namespace CityTravelService.Controllers
         [HttpPost]
         public bool Post([FromBody]TaiKhoan tk)
         {
-            if (Test() == false)
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            }
-
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             //tkO.insertTaiKhoan(tk);
             /*var response = Request.CreateResponse<TaiKhoan>(HttpStatusCode.Created, tk);
@@ -151,10 +146,6 @@ namespace CityTravelService.Controllers
         [HttpPut]
         public bool ForegetPassword(string email)
         {
-            if (Test() == false)
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            }
             string temp = CreatePassword();
             MailMessage mailMessag = new MailMessage(ConfigurationManager.AppSettings.Get("Email"), email);
             mailMessag.Subject = "Gửi lại mật khẩu";
