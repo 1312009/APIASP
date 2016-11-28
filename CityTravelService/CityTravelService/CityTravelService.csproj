@@ -142,6 +142,7 @@
     <Compile Include="Controllers\DuLieuController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TaiKhoanController.cs" />
+    <Compile Include="Controllers\TenDiaDiemController.cs" />
     <Compile Include="Controllers\TuKhoaDichVuController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -167,6 +168,7 @@
     <Compile Include="Models\TaiKhoan.cs" />
     <Compile Include="Models\TaiKhoanDAO.cs" />
     <Compile Include="Models\TenDiaDiem.cs" />
+    <Compile Include="Models\TenDiaDiemDAO.cs" />
     <Compile Include="Models\TinhThanh.cs" />
     <Compile Include="Models\TuKhoaDiaDiemDAO.cs" />
     <Compile Include="Models\TuKhoaDuongDAO.cs" />
