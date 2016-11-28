@@ -86,7 +86,7 @@ namespace CityTravelServer.Models
             {
                 connect();
 
-                string updateCommand = string.Format("UPDATE BINHLUAN SET TrangThai = '1' WHERE MaBinhLuan = '" + mabinhluan + "'");
+                string updateCommand = string.Format("UPDATE BINHLUAN SET TrangThai = 1 WHERE MaBinhLuan = '" + mabinhluan + "'");
 
                 executeNonQuery(updateCommand);
                 disconnect();
