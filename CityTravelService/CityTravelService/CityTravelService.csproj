@@ -144,6 +144,9 @@
     <Compile Include="Controllers\TaiKhoanController.cs" />
     <Compile Include="Controllers\TenDiaDiemController.cs" />
     <Compile Include="Controllers\TuKhoaDichVuController.cs" />
+    <Compile Include="Controllers\TuKhoaDuongController.cs" />
+    <Compile Include="Controllers\TuKhoaPhuongController.cs" />
+    <Compile Include="Controllers\TuKhoaQuanHuyenController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
