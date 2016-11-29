@@ -162,8 +162,7 @@ namespace CityTravelService.Models
                     tk.Birth.Year + "-" + tk.Birth.Month + "-" + tk.Birth.Day + "', N'" +
                     tk.Address + "', '" +
                     tk.Picture +"', '" +
-                    tk.Role + "', " +
-                    tk.IdUser +")";
+                    tk.Role + "')";
                 executeNonQuery(insertCommand);
                 disconnect();
                 return true;
