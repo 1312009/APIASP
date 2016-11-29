@@ -27,11 +27,11 @@ namespace CityTravelService.Controllers
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
-            DichVuDAO ddO = new DichVuDAO();
+            DichVuDAO dvO = new DichVuDAO();
 
-            DichVu[] dd = new DichVu[ddO.getDsDichVu().Count];
-            dd = ddO.getDsDichVu().ToArray();
-            return dd;
+            DichVu[] dv = new DichVu[dvO.getDsDichVu().Count];
+            dv = dvO.getDsDichVu().ToArray();
+            return dv;
         }
 
         // GET: api/DichVu/5
@@ -41,47 +41,47 @@ namespace CityTravelService.Controllers
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
-            DichVuDAO ddO = new DichVuDAO();
+            DichVuDAO dvO = new DichVuDAO();
 
-            DichVu[] dd = new DichVu[ddO.getDsDichVu(id).Count];
-            dd = ddO.getDsDichVu(id).ToArray();
-            if (dd.Length == 0)
+            DichVu[] dv = new DichVu[dvO.getDsDichVu(id).Count];
+            dv = dvO.getDsDichVu(id).ToArray();
+            if (dv.Length == 0)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
-            return dd;
+            return dv;
         }
 
         // POST: api/DichVu
         [Auth(PerMissionName = "Admin")]
-        public void Post([FromBody]DichVu dd)
+        public void Post([FromBody]DichVu dv)
         {
-            DichVuDAO dd0 = new DichVuDAO();
-            dd0.insertDichVu(dd);
+            DichVuDAO dv0 = new DichVuDAO();
+            dv0.insertDichVu(dv);
         }
 
         // PUT: api/DichVu/5
-        //public HttpResponseMessage Put([FromBody]DichVu dd)
+        //public HttpResponseMessage Put([FromBody]DichVu dv)
         //{
-        //    DichVuDAO ddO = new DichVuDAO();
-        //    ddO.updateDichVu(dd);
-        //    var response = Request.CreateResponse<DichVu>(HttpStatusCode.Created, dd);
-        //    response.Headers.Location = new System.Uri(Request.RequestUri, "/api/DichVu/" + dd.ID);
+        //    DichVuDAO dvO = new DichVuDAO();
+        //    dvO.updateDichVu(dv);
+        //    var response = Request.CreateResponse<DichVu>(HttpStatusCode.Created, dv);
+        //    response.Headers.Location = new System.Uri(Request.RequestUri, "/api/DichVu/" + dv.ID);
         //    return response;
         //}
 
         // PUT: api/DichVu/5
         [Auth(PerMissionName = "Admin")]
-        public void Put([FromBody]DichVu dd)
+        public void Put([FromBody]DichVu dv)
         {
-            DichVuDAO dd0 = new DichVuDAO();
-            dd0.updateDichVu(dd);
+            DichVuDAO dv0 = new DichVuDAO();
+            dv0.updateDichVu(dv);
         }
 
         // DELETE: api/DichVu/5
         [Auth(PerMissionName = "Admin")]
         public void Delete(int id)
         {
-            DichVuDAO dd0 = new DichVuDAO();
-            dd0.deleteDichVu(id);
+            DichVuDAO dv0 = new DichVuDAO();
+            dv0.deleteDichVu(id);
         }
     }
 }

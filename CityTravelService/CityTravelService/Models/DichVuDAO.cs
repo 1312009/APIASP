@@ -13,7 +13,7 @@ namespace CityTravelService.Models
         public List<DichVu> getDsDichVu()
         {
             connect();
-            string query = "SELECT* FROM DICHVU";
+            string query = "SELECT * FROM DICHVU";
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
@@ -29,7 +29,7 @@ namespace CityTravelService.Models
         public List<DichVu> getDsDichVu(int id)
         {
             connect();
-            string query = "SELECT* FROM DICHVU WHERE MaDichVu = " + id;
+            string query = "SELECT * FROM DICHVU WHERE MaDichVu = " + id;
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
@@ -46,22 +46,22 @@ namespace CityTravelService.Models
 
         protected override object GetDataFromDataRow(DataTable dt, int i)
         {
-            DichVu dd = new DichVu();
-            dd.ID = (int)dt.Rows[i]["MaDichVu"];
-            dd.Name = dt.Rows[i]["TenDichVu"].ToString();
-            dd.Hinh = dt.Rows[i]["Hinh"].ToString();
+            DichVu dv = new DichVu();
+            dv.ID = (int)dt.Rows[i]["MaDichVu"];
+            dv.Name = dt.Rows[i]["TenDichVu"].ToString();
+            dv.Hinh = dt.Rows[i]["Hinh"].ToString();
 
-            return (object)dd;
+            return (object)dv;
         }
 
-        public bool insertDichVu(DichVu dd)
+        public bool insertDichVu(DichVu dv)
         {
             try
             {
                 connect();
                 string insertCommand = "INSERT INTO DICHVU VALUES(N'" +
-                    dd.Name + "', '" +
-                    dd.Hinh + "')";
+                    dv.Name + "', '" +
+                    dv.Hinh + "')";
                 executeNonQuery(insertCommand);
                 disconnect();
                 return true;
@@ -73,16 +73,16 @@ namespace CityTravelService.Models
 
         }
 
-        public bool updateDichVu(DichVu dd)
+        public bool updateDichVu(DichVu dv)
         {
             try
             {
                 connect();
-                //string updateCommand = "UPDATE DICHVU SET TenDichVu = N'" + dd.Name +
-                //    "', Hinh = '" + dd.Hinh + "' WHERE MaDichVu = " + dd.ID;
+                //string updateCommand = "UPDATE DICHVU SET TenDichVu = N'" + dv.Name +
+                //    "', Hinh = '" + dv.Hinh + "' WHERE MaDichVu = " + dv.ID;
 
-                string updateCommand = string.Format("UPDATE DICHVU SET TenDichVu = N'" + dd.Name +
-                    "', Hinh = '" + dd.Hinh + "' WHERE MaDichVu = " + dd.ID);
+                string updateCommand = string.Format("UPDATE DICHVU SET TenDichVu = N'" + dv.Name +
+                    "', Hinh = '" + dv.Hinh + "' WHERE MaDichVu = " + dv.ID);
 
                 executeNonQuery(updateCommand);
                 disconnect();

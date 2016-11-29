@@ -116,12 +116,39 @@ namespace CityTravelService.Models
             }
         }
 
-        public void deleteTuKhoaQuanHuyen(int id)
+        public bool deleteTuKhoaQuanHuyen(int id)
         {
-            connect();
-            string deleteCommand = "DELETE FROM TUKHOAQUANHUYEN WHERE MaTuKhoaQuanHuyen = " + id;
-            executeNonQuery(deleteCommand);
-            disconnect();
+            try
+            {
+                connect();
+                string deleteCommand = "DELETE FROM TUKHOAQUANHUYEN WHERE MaTuKhoaQuanHuyen = " + id;
+                executeNonQuery(deleteCommand);
+                disconnect();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+
+        public bool insertTuKhoaQuanHuyen(TuKhoaQuanHuyen tkq)
+        {
+            try
+            {
+                connect();
+                string insertCommand = "INSERT INTO TUKHOAQUANHUYEN VALUES( N'" +
+                    tkq.TuKhoaQuanHuyen1 + "'," + tkq.MaQuanHuyen + ")";
+                executeNonQuery(insertCommand);
+                disconnect();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
         }
 
     }

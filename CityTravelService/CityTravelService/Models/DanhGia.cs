@@ -9,6 +9,7 @@ namespace CityTravelService.Models
     {
         public string Email { get; set; }
         public int IDAddress { get; set; }
+		public int IDMaDL { get; set; }
         public float Rate { get; set; }
     }
 }

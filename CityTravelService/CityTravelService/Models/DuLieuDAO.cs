@@ -62,19 +62,24 @@ namespace CityTravelService.Models
         
         protected override object GetDataFromDataRow(DataTable dt, int i)
         {
+            int danhgia = 0;
+            string mabinhluan = "";
             DuLieu dl = new DuLieu();
-            dl.MaDuLieu = dt.Rows[i].IsNull("MaDuLieu") ? 0 : (int)dt.Rows[i]["MaDuLieu"];
-            dl.MaDichVu = dt.Rows[i].IsNull("MaDichVu") ? 0 : (int)dt.Rows[i]["MaDichVu"];
-            dl.MaTenDiaDiem = dt.Rows[i].IsNull("MaTenDiaDiem") ? 0 : (int)dt.Rows[i]["MaTenDiaDiem"];
-            dl.SoNha = dt.Rows[i]["SoNha"].ToString();
-            dl.MaDuong = dt.Rows[i].IsNull("MaDuong") ? 0 : (int)dt.Rows[i]["MaDuong"];
-            dl.MaPhuong = dt.Rows[i].IsNull("MaPhuong") ? 0 : (int)dt.Rows[i]["MaPhuong"];
-            dl.MaQuanHuyen = dt.Rows[i].IsNull("MaQuanHuyen") ? 0 : (int)dt.Rows[i]["MaQuanHuyen"];
-            dl.MaTinhThanh = dt.Rows[i].IsNull("MaTinhThanh") ? 0 : (int)dt.Rows[i]["MaTinhThanh"];
-            dl.KinhDo = dt.Rows[i].IsNull("KinhDo") ? 0.0f : (double)dt.Rows[i]["KinhDo"];
-            dl.ViDo = dt.Rows[i].IsNull("ViDo") ? 0.0f : (double)dt.Rows[i]["ViDo"];
-            dl.ChuThich = dt.Rows[i]["ChuThich"].ToString();
-            dl.DanhGia = dt.Rows[i].IsNull("DanhGia") ? 0 : (int)dt.Rows[i]["DanhGia"];
+            dl.MaDuLieu = (int)dt.Rows[i]["MaDuLieu"];
+            dl.MaDichVu = (int)dt.Rows[i]["MaDichVu"];
+            dl.MaTenDiaDiem = (int)dt.Rows[i]["MaTenDiaDiem"];
+            dl.SoNha = dt.Rows[i]["SoNha"].ToString().Trim();
+            dl.MaDuong = (int)dt.Rows[i]["MaDuong"];
+            dl.MaPhuong = (int)dt.Rows[i]["MaPhuong"];
+            dl.MaQuanHuyen = (int)dt.Rows[i]["MaQuanHuyen"];
+            dl.MaTinhThanh = (int)dt.Rows[i]["MaTinhThanh"];
+            dl.KinhDo = (double)dt.Rows[i]["KinhDo"];
+            dl.ViDo = (double)dt.Rows[i]["ViDo"];
+            dl.ChuThich = dt.Rows[i]["ChuThich"].ToString().Trim();
+            danhgia = dl.DanhGia == null ? 0 : (int)dl.DanhGia;
+            dl.DanhGia = danhgia;
+            mabinhluan = dl.MaBinhLuan == null ? "" : dl.MaBinhLuan;
+            dl.MaBinhLuan = mabinhluan;
 
             return (object)dl;
         }

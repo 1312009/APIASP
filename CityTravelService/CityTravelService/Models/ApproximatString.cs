@@ -13,7 +13,7 @@ namespace CityTravelService.Models
         public ApproximatString(string nhap)
         {
             s = nhap;
-            saiSo = (int)Math.Round(s.Length * 0.5);
+            saiSo = (int)Math.Round(s.Length * 0.8);
         }
 
         public int SoSanh(string s1)

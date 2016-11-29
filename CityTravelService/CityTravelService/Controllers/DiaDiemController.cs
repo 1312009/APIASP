@@ -79,6 +79,11 @@ namespace CityTravelService.Controllers
                 return new HttpResponseMessage(HttpStatusCode.NotFound);
             }
         }
+		   public DiaDiem Get(int ma_dulieu)
+        {
+            DiaDiemDAO ddO = new DiaDiemDAO();
+            return ddO.getDLDiaDiem(ma_dulieu);
+        }
 
         //GET: api/DiaDiem/5
         //public HttpResponseMessage Delete(int id, [FromBody]string tendiadiem)
