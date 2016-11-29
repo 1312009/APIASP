@@ -28,7 +28,26 @@ namespace CityTravelService.Models
             return arr;
         }
 
-        public TaiKhoan getTaiKhoan(string email)
+        public TaiKhoan getTaiKhoan(int id)
+        {
+            connect();
+            string query = "SELECT * FROM TAIKHOAN WHERE IdUser = " + id ;
+            adapter = new SqlDataAdapter(query, connection);
+            DataSet dataset = new DataSet();
+            adapter.Fill(dataset);
+            ArrayList ls = ConvertDataSetToArrayList(dataset);
+            TaiKhoan arr = new TaiKhoan();
+            foreach (Object o in ls)
+            {
+                arr = (TaiKhoan)o;
+                break;
+            }
+
+            disconnect();
+            return arr;
+        }
+
+        public int getTaiKhoan(string email)
         {
             connect();
             string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + email + "'";
@@ -44,7 +63,7 @@ namespace CityTravelService.Models
             }
 
             disconnect();
-            return arr;
+            return arr.IdUser;
         }
 
         public TaiKhoan getTaiKhoan(string email, string password)
@@ -124,6 +143,7 @@ namespace CityTravelService.Models
             tk.Address = dt.Rows[i]["DiaChi"].ToString();
             tk.Picture = dt.Rows[i]["Hinh"].ToString();
             tk.Role = dt.Rows[i]["Role"].ToString();
+            tk.IdUser = dt.Rows[i].IsNull("IdUser") ? 0 : (int)dt.Rows[i]["IdUser"];
             return (object)tk;
         }
 
@@ -142,7 +162,8 @@ namespace CityTravelService.Models
                     tk.Birth.Year + "-" + tk.Birth.Month + "-" + tk.Birth.Day + "', N'" +
                     tk.Address + "', '" +
                     tk.Picture +"', '" +
-                    tk.Role + "')";
+                    tk.Role + "', " +
+                    tk.IdUser +")";
                 executeNonQuery(insertCommand);
                 disconnect();
                 return true;
@@ -158,6 +179,7 @@ namespace CityTravelService.Models
             try
             {
                 connect();
+
                 string updateCommand = "UPDATE TAIKHOAN SET Email = '" + tk.Email +
                     "', MatKhau = '" + tk.PassWord +
                     "', Ho = N'" + tk.LastName +
@@ -167,8 +189,9 @@ namespace CityTravelService.Models
                     ", NgaySinh = '" + tk.Birth.Year + "-" + tk.Birth.Month + "-" + tk.Birth.Day +
                     "', DiaChi = N'" + tk.Address +
                     "', Hinh = '" + tk.Picture +
-                      "', Role = '" + tk.Role +
-                    "' WHERE Email = '" + tk.Email + "'";
+                      "', Role = '" + tk.Role + 
+                    "', IdUser = " + tk.IdUser +
+                    " WHERE IdUser = " + tk.IdUser;
                 executeNonQuery(updateCommand);
                 disconnect();
                 return true;
@@ -178,13 +201,13 @@ namespace CityTravelService.Models
                 return false;
             }
         }
-        public bool updatePassword(string pass, string Email)
+        public bool updatePassword(string pass, int id)
         {
             try
             {
                 connect();
                 string updateCommand = "UPDATE TAIKHOAN SET MatKhau = '" + pass +
-                    "' WHERE Email = '" + Email + "'";
+                    "' WHERE IdUser = " + id;
                 executeNonQuery(updateCommand);
                 disconnect();
                 return true;
@@ -195,12 +218,12 @@ namespace CityTravelService.Models
             }
         }
 
-        public bool changePassword(string email,string passwordold,string passwordnew)
+        public bool changePassword(int IdUser,string passwordold,string passwordnew)
         {
             try
             {
                 connect();
-                string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + email + "' AND MatKhau = '" + passwordold + "'";
+                string query = "SELECT * FROM TAIKHOAN WHERE IdUser = " + IdUser + " AND MatKhau = '" + passwordold + "'";
                 adapter = new SqlDataAdapter(query, connection);
                 DataSet dataset = new DataSet();
                 adapter.Fill(dataset);
@@ -210,10 +233,10 @@ namespace CityTravelService.Models
                 {
                     arr = (TaiKhoan)o;
                 }
-                if (arr.Email != null)
+                if (arr.IdUser != 0)
                 {
                     string updateCommand = "UPDATE TAIKHOAN SET MatKhau = '" + passwordnew +
-                       "' WHERE Email = '" + email + "'";
+                       "' WHERE IdUser = " + IdUser;
                     executeNonQuery(updateCommand);
                     disconnect();
                 }
@@ -228,12 +251,12 @@ namespace CityTravelService.Models
             }
             return true;
         }
-        public bool deleteTaiKhoan(string Email)
+        public bool deleteTaiKhoan(int id)
         {
             try
             {
                 connect();
-                string deleteCommand = "DELETE FROM TAIKHOAN WHERE Email = '" + Email + "'";
+                string deleteCommand = "DELETE FROM TAIKHOAN WHERE IdUser = " + id;
                 executeNonQuery(deleteCommand);
                 disconnect();
                 return true;

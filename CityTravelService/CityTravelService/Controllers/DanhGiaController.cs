@@ -61,7 +61,7 @@ namespace CityTravelService.Controllers
         }
 
         // GET: api/DanhGia?email=example@gmail.com&id=1217
-        public DanhGia Get(string email, int id)
+        public DanhGia Get(int IdUser, int id)
         {
             if (Test() == false)
             {
@@ -69,8 +69,8 @@ namespace CityTravelService.Controllers
             }
             DanhGiaDAO dgO = new DanhGiaDAO();
 
-            DanhGia[] dg = new DanhGia[dgO.getDanhGia(email, id).Count];
-            dg = dgO.getDanhGia(email, id).ToArray();
+            DanhGia[] dg = new DanhGia[dgO.getDanhGia(IdUser, id).Count];
+            dg = dgO.getDanhGia(IdUser, id).ToArray();
             //if (dg.Length == 0)
             //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             return dg[0];
@@ -119,18 +119,18 @@ namespace CityTravelService.Controllers
         }
 
         // DELETE: api/DanhGia?email=example@gmail.com&id=1217
-        public bool Delete(string email, int id)
+        public bool Delete(int IdUser, int id)
         {
             if (Test() == false)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
             DanhGiaDAO dgO = new DanhGiaDAO();
-            DanhGia[] dg = new DanhGia[dgO.getDanhGia(email, id).Count];
-            dg = dgO.getDanhGia(email, id).ToArray();
+            DanhGia[] dg = new DanhGia[dgO.getDanhGia(IdUser, id).Count];
+            dg = dgO.getDanhGia(IdUser, id).ToArray();
             if (dg.Length == 0)
                 return false;
-            dgO.deleteDanhGia(email, id);
+            dgO.deleteDanhGia(IdUser, id);
             return true;
         }
     }

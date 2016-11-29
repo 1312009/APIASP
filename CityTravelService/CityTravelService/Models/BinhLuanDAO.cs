@@ -48,7 +48,7 @@ namespace CityTravelServer.Models
         {
             BinhLuan bl = new BinhLuan();
             bl.MaBinhLuan = dt.Rows[i]["MaBinhLuan"].ToString();
-            bl.Email = dt.Rows[i]["Email"].ToString();
+            bl.IdUser = dt.Rows[i].IsNull("IdUser") ? 0 : (int)dt.Rows[i]["IdUser"];
             bl.NoiDung = dt.Rows[i]["NoiDung"].ToString();
             bl.ThoiGian = (DateTime)dt.Rows[i]["ThoiGian"];
             bl.MaDuLieu = (int)dt.Rows[i]["MaDuLieu"];
@@ -64,8 +64,8 @@ namespace CityTravelServer.Models
                 connect();
                 string insertCommand = "INSERT INTO BINHLUAN VALUES(" +
                     bl.MaDuLieu + ", '" +
-                    bl.MaBinhLuan + "', '" +
-                    bl.Email + "', N'" +
+                    bl.MaBinhLuan + "', " +
+                    bl.IdUser + ", N'" +
                     bl.NoiDung + "', '" +
                     bl.ThoiGian.Year + "-" + bl.ThoiGian.Month + "-" + bl.ThoiGian.Day + " " + bl.ThoiGian.Hour + ":" + bl.ThoiGian.Minute + ":" + bl.ThoiGian.Second + "'," +
                     bl.TrangThai + ")";

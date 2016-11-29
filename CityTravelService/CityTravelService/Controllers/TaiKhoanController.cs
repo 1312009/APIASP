@@ -51,7 +51,7 @@ namespace CityTravelService.Controllers
         // GET: api/TaiKhoan/5
         [Route("")]
         [HttpGet]
-        public TaiKhoan Get(string email)
+        public TaiKhoan Get(int IdUser)
         {
             if (Test() == false)
             {
@@ -59,7 +59,7 @@ namespace CityTravelService.Controllers
             }
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             TaiKhoan tk = new TaiKhoan();
-            tk =tkO.getTaiKhoan(email);
+            tk =tkO.getTaiKhoan(IdUser);
             //if (tk.Length == 0)
             //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             return tk;
@@ -110,14 +110,14 @@ namespace CityTravelService.Controllers
         }
         [Route("ChangPassword")]
         [HttpPut]
-        public bool  ChangPassword(string email,string passwordold,string passwordnew)
+        public bool  ChangPassword(int IdUser,string passwordold,string passwordnew)
         {
             if (Test() == false)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
             TaiKhoanDAO tk0 = new TaiKhoanDAO();
-            return tk0.changePassword(email, passwordold, passwordnew);
+            return tk0.changePassword(IdUser, passwordold, passwordnew);
 
         }
         #endregion
@@ -125,7 +125,7 @@ namespace CityTravelService.Controllers
         // DELETE: api/TaiKhoan/5
         [Route("")]
         [HttpDelete]
-        public bool Delete(string id)
+        public bool Delete(int id)
         {
             if (Test() == false)
             {
@@ -154,10 +154,11 @@ namespace CityTravelService.Controllers
             client.Send(mailMessag);
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             TaiKhoan tk = new TaiKhoan();
-            tk = tkO.getTaiKhoan(email);
+            int id = tkO.getTaiKhoan(email);
+            tk = tkO.getTaiKhoan(id);
             if (tk==null)
                 return false;
-            tkO.updatePassword(temp, email);
+            tkO.updatePassword(temp, id);
             return true;
         }
         public string CreatePassword()

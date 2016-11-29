@@ -17,6 +17,8 @@ namespace CityTravelService.Models
         public string Address { set; get; }
         public string Picture { set; get; }
         public string Role { get; set; }
-       
+        public int IdUser { get; set; }
+
+
     }
 }

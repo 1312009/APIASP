@@ -8,7 +8,7 @@ namespace CityTravelServer.Models
     public class BinhLuan
     {
         public String MaBinhLuan { get; set; }
-        public string Email { get; set; }
+        public int IdUser { get; set; }
         public string NoiDung { get; set; }
         public DateTime ThoiGian { get; set; }
         public int MaDuLieu { get; set; }
