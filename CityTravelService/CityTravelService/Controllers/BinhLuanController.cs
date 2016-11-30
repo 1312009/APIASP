@@ -9,7 +9,6 @@ using System.Web.Http;
 
 namespace CityTravelServer.Controllers
 {
-    //[Auth(PerMissionName = "Admin")]
     [RoutePrefix("api/BinhLuan")]
     public class BinhLuanController : ApiController
     {
