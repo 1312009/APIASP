@@ -91,7 +91,7 @@ namespace CityTravelService.Models
             }
 
             connect();
-            string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + email + "' AND MatKhau = '" + password + "'" + "' AND NhaCungCap = '" + provider + "'";
+            string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + email + "' AND MatKhau = '" + password + "' AND NhaCungCap = '" + provider + "'";
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
@@ -153,6 +153,24 @@ namespace CityTravelService.Models
             try
             {
                 connect();
+                if(tk.Provider=="Local")
+                {
+                    string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + tk.Email + "' AND NhaCungCap = '" + tk.Provider + "'";
+                    adapter = new SqlDataAdapter(query, connection);
+                    DataSet dataset = new DataSet();
+                    adapter.Fill(dataset);
+                    ArrayList ls = ConvertDataSetToArrayList(dataset);
+                    TaiKhoan arr = new TaiKhoan();
+                    foreach (Object o in ls)
+                    {
+                        arr = (TaiKhoan)o;
+                        break;
+                    }
+                    if(!string.IsNullOrEmpty(arr.Email))
+                    {
+                        return false;
+                    }
+                }
                 string insertCommand = "INSERT INTO TAIKHOAN VALUES('" +
                     tk.Email + "', '" +
                     tk.PassWord + "', N'" +
@@ -180,7 +198,24 @@ namespace CityTravelService.Models
             try
             {
                 connect();
-
+                if (tk.Provider == "Local")
+                {
+                    string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + tk.Email + "' AND NhaCungCap = '" + tk.Provider + "'";
+                    adapter = new SqlDataAdapter(query, connection);
+                    DataSet dataset = new DataSet();
+                    adapter.Fill(dataset);
+                    ArrayList ls = ConvertDataSetToArrayList(dataset);
+                    TaiKhoan arr = new TaiKhoan();
+                    foreach (Object o in ls)
+                    {
+                        arr = (TaiKhoan)o;
+                        break;
+                    }
+                    if (!string.IsNullOrEmpty(arr.Email))
+                    {
+                        return false;
+                    }
+                }
                 string updateCommand = "UPDATE TAIKHOAN SET Email = '" + tk.Email +
                     "', MatKhau = '" + tk.PassWord +
                     "', Ho = N'" + tk.LastName +
