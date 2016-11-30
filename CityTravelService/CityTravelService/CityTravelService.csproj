@@ -137,6 +137,7 @@
     <Compile Include="Controllers\BinhLuanController.cs" />
     <Compile Include="Controllers\BinhLuanKHController.cs" />
     <Compile Include="Controllers\BinhLuanAdminController.cs" />
+    <Compile Include="Controllers\ChiTietDichVuController.cs" />
     <Compile Include="Controllers\DanhGiaController.cs" />
     <Compile Include="Controllers\DiaDiemController.cs" />
     <Compile Include="Controllers\DichVuController.cs" />
