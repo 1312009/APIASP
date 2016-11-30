@@ -23,10 +23,10 @@ namespace CityTravelService.Controllers
         // GET: api/DichVu
         public IEnumerable<DichVu> Get()
         {
-            if (Test() == false)
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            }
+            //if (Test() == false)
+            //{
+            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            //}
             DichVuDAO dvO = new DichVuDAO();
 
             DichVu[] dv = new DichVu[dvO.getDsDichVu().Count];
@@ -37,10 +37,10 @@ namespace CityTravelService.Controllers
         // GET: api/DichVu/5
         public IEnumerable<DichVu> Get(int id)
         {
-            if (Test() == false)
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            }
+            //if (Test() == false)
+            //{
+            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            //}
             DichVuDAO dvO = new DichVuDAO();
 
             DichVu[] dv = new DichVu[dvO.getDsDichVu(id).Count];
@@ -51,7 +51,7 @@ namespace CityTravelService.Controllers
         }
 
         // POST: api/DichVu
-        [Auth(PerMissionName = "Admin")]
+        //[Auth(PerMissionName = "Admin")]
         public void Post([FromBody]DichVu dv)
         {
             DichVuDAO dv0 = new DichVuDAO();
@@ -69,7 +69,7 @@ namespace CityTravelService.Controllers
         //}
 
         // PUT: api/DichVu/5
-        [Auth(PerMissionName = "Admin")]
+        //[Auth(PerMissionName = "Admin")]
         public void Put([FromBody]DichVu dv)
         {
             DichVuDAO dv0 = new DichVuDAO();
@@ -77,7 +77,7 @@ namespace CityTravelService.Controllers
         }
 
         // DELETE: api/DichVu/5
-        [Auth(PerMissionName = "Admin")]
+        //[Auth(PerMissionName = "Admin")]
         public void Delete(int id)
         {
             DichVuDAO dv0 = new DichVuDAO();

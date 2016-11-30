@@ -10,7 +10,7 @@ using CityTravelService.Session;
 
 namespace CityTravelService.Controllers
 {
-	[Auth(PerMissionName = "Admin")]
+	//[Auth(PerMissionName = "Admin")]
     public class TenDiaDiemController : ApiController
     {
         // POST: api/TenDiaDiem

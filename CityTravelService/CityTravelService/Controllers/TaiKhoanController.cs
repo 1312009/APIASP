@@ -25,7 +25,7 @@ namespace CityTravelService.Controllers
         }
         #region GET
         // GET: api/TaiKhoan
-        [Auth(PerMissionName = "Admin")]
+        //[Auth(PerMissionName = "Admin")]
         [Route("")]
         [HttpGet]
         public IEnumerable<TaiKhoan> Get()
@@ -53,10 +53,10 @@ namespace CityTravelService.Controllers
         [HttpGet]
         public TaiKhoan Get(int IdUser)
         {
-            if (Test() == false)
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            }
+            //if (Test() == false)
+            //{
+            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            //}
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             TaiKhoan tk = new TaiKhoan();
             tk =tkO.getTaiKhoan(IdUser);
@@ -127,10 +127,10 @@ namespace CityTravelService.Controllers
         [HttpDelete]
         public bool Delete(int id)
         {
-            if (Test() == false)
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            }
+            //if (Test() == false)
+            //{
+            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            //}
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             TaiKhoan tk = new TaiKhoan();
             tk = tkO.getTaiKhoan(id);

@@ -42,10 +42,10 @@ namespace CityTravelService.Controllers
         // GET: api/DiaDiem
         public IEnumerable<DiaDiem> Get()
         {
-            if (Test() == false)
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            }
+            //if (Test() == false)
+            //{
+            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            //}
             try
             {
                 DiaDiemDAO ddO = new DiaDiemDAO();
@@ -62,10 +62,10 @@ namespace CityTravelService.Controllers
 
         public HttpResponseMessage Get(string str)
         {
-            if (Test() == false)
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            }
+            //if (Test() == false)
+            //{
+            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            //}
             try
             {
                 DiaDiemDAO ddO = new DiaDiemDAO();

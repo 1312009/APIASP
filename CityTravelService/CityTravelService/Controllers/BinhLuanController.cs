@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace CityTravelServer.Controllers
 {
-    [Auth(PerMissionName = "Admin")]
+    //[Auth(PerMissionName = "Admin")]
     public class BinhLuanController : ApiController
     {
         // GET: api/BinhLuan
