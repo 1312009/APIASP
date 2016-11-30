@@ -11,16 +11,26 @@ namespace CityTravelService.Models
 {
     public class ChiTietDichVuDAO : DataProvider
     {
-        
 
-        public List<ChiTietDichVu> get_DuLieu_ChiTiet(int ma_dulieu)
+        public List<ChiTietDichVu> get_All_ChiTiet_DichVu()
         {
             connect();
-            string query = @"select dl.MaDuLieu, dv.TenDichVu, tdd.TenDiaDiem, dl.SoNha, d.TenDuong, p.TenPhuong, qh.TenQuanHuyen, tt.TenTinhThanh
-                            from DULIEU dl join DICHVU dv on (dl.MaDichVu = dv.MaDichVu) join TENDIADIEM tdd on (dl.MaTenDiaDiem = tdd.MaTenDiaDiem)
-                            join DUONG d on (dl.MaDuong = d.MaDuong) join PHUONG p on (dl.MaPhuong = p.MaPhuong) join QUANHUYEN qh on (dl.MaQuanHuyen = qh.MaQuanHuyen)
-                            join TINHTHANH tt on (dl.MaTinhThanh = tt.MaTinhThanh)
-                            where dl.MaDuLieu = " + ma_dulieu;
+            string query = @"select * from CHITIET_DULIEU";
+            adapter = new SqlDataAdapter(query, connection);
+            DataSet dataset = new DataSet();
+            adapter.Fill(dataset);
+            ArrayList ls = ConvertDataSetToArrayList(dataset);
+            List<ChiTietDichVu> arr = new List<ChiTietDichVu>();
+            foreach (Object o in ls)
+            {
+                arr.Add((ChiTietDichVu)o);
+            }
+            return arr;
+        }
+        public List<ChiTietDichVu> get_ChiTiet_DichVu(int ma_dulieu)
+        {
+            connect();
+            string query = string.Format("select * where MaDuLieu = {0}", ma_dulieu);
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
@@ -33,17 +43,60 @@ namespace CityTravelService.Models
             return arr;
         }
 
+        public bool insert_ChiTiet_DichVu(ChiTietDichVu dichvu)
+        {
+            connect();
+            try
+            {
+                string insertCommand = string.Format(" insert into CHITIET_DULIEU(MaDuLieu, MaChiTiet) values ({0},{1})", dichvu.ma_dulieu, dichvu.ma_chitiet);
+
+                executeNonQuery(insertCommand);
+                disconnect();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool delete_ChiTiet_DichVu(ChiTietDichVu dv)
+        {
+            try
+            {
+                connect();
+                string deleteCommand = string.Format("DELETE FROM CHITIET_DULIEU WHERE MaDuLieu = {0} and MaChiTiet = {1}", dv.ma_dulieu, dv.ma_chitiet);
+                executeNonQuery(deleteCommand);
+                disconnect();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool update_ChiTiet_DichVu(ChiTietDichVu dv)
+        {
+            try
+            {
+                connect();
+                string deleteCommand = string.Format("UPDATE CHITIET_DULIEU SET MaChiTiet = {0} WHERE MaDuLieu = {1}", dv.ma_chitiet, dv.ma_dulieu);
+                executeNonQuery(deleteCommand);
+                disconnect();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
         protected override object GetDataFromDataRow(DataTable dt, int i)
         {
             ChiTietDichVu chitiet_dulieu = new ChiTietDichVu();
             chitiet_dulieu.ma_dulieu = (int)dt.Rows[i]["MaDuLieu"];
-            chitiet_dulieu.ten_dichvu = dt.Rows[i]["TenDichVu"].ToString();
-            chitiet_dulieu.ten_diadiem = dt.Rows[i]["TenDiaDiem"].ToString();
-            chitiet_dulieu.sonha = dt.Rows[i]["SoNha"].ToString().Trim();
-            chitiet_dulieu.tenduong = dt.Rows[i]["TenDuong"].ToString();
-            chitiet_dulieu.tenphuong = dt.Rows[i]["TenPhuong"].ToString();
-            chitiet_dulieu.tenquanhuyen = dt.Rows[i]["TenQuanHuyen"].ToString();
-            chitiet_dulieu.tentinhthanh = dt.Rows[i]["TenTinhThanh"].ToString();
+            chitiet_dulieu.ma_chitiet = (int)dt.Rows[i]["MaChiTiet"];
             return (object)chitiet_dulieu;
         }
         

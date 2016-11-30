@@ -76,7 +76,7 @@ namespace CityTravelService.Models
         public TenDiaDiem getTenDiaDiem(int matendiadiem)
         {
             connect();
-            string query = "SELECT * FROM MaTenDiaDiem = " + matendiadiem;
+            string query = "SELECT * FROM TENDIADIEM WHERE MaTenDiaDiem = " + matendiadiem;
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
@@ -90,7 +90,7 @@ namespace CityTravelService.Models
             return dt;
         }
 
-        public bool DeleteTenDiaDiem(int id, string tendiadiem)
+        public bool DeleteTenDiaDiem(int id)
         {
             try
             {
@@ -98,13 +98,13 @@ namespace CityTravelService.Models
                 DuLieuDAO dlDao = new DuLieuDAO();
                 TuKhoaDiaDiemDAO tkddDao = new TuKhoaDiaDiemDAO();
                 List<DuLieu> arr = new List<DuLieu>();
-                arr = dlDao.getDuLieu(id);
+                arr = dlDao.getDuLieu(id, connection);
                 foreach (DuLieu i in arr)
                 {
                     dlDao.delete_DuLieu(i.MaDuLieu);
                 }
-                tkddDao.deleteTuKhoaDiaDiemByMaDiaDiem(id);
-                string deleteCommand = "DELETE FROM TENDIADIEM WHERE TenDiaDiem = N'" + tendiadiem + "'";
+                tkddDao.deleteTuKhoaDiaDiemByMaDiaDiem(id, connection);
+                string deleteCommand = "DELETE FROM TENDIADIEM WHERE MaTenDiaDiem = " + id;
                 executeNonQuery(deleteCommand);
                 disconnect();
                 return true;

@@ -10,11 +10,12 @@ using CityTravelService.Session;
 
 namespace CityTravelService.Controllers
 {
-	//[Auth(PerMissionName = "Admin")]
+	
     public class TenDiaDiemController : ApiController
     {
         // POST: api/TenDiaDiem
         //Them dia diem
+        //[Auth(PerMissionName = "Admin")]
         public HttpResponseMessage Post([FromBody]TenDiaDiem tenDD)
         {
             TenDiaDiemDAO ddO = new TenDiaDiemDAO();
@@ -52,11 +53,26 @@ namespace CityTravelService.Controllers
             }
         }
 
+        public HttpResponseMessage Get(int ma_ten_diadiem)
+        {
+            try
+            {
+                TenDiaDiemDAO ddO = new TenDiaDiemDAO();
+                TenDiaDiem result = ddO.getTenDiaDiem(ma_ten_diadiem);
+                var response = Request.CreateResponse<TenDiaDiem>(HttpStatusCode.Created, result);
+                return response;
+            }
+            catch (Exception e)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+        }
+
         //GET: api/TenDiaDiem/5
-        public HttpResponseMessage Delete(int id, [FromBody]string tendiadiem)
+        public HttpResponseMessage Delete(int id)
         {
             TenDiaDiemDAO ddO = new TenDiaDiemDAO();
-            bool result = ddO.DeleteTenDiaDiem(id, tendiadiem);
+            bool result = ddO.DeleteTenDiaDiem(id);
             var response = Request.CreateResponse<bool>(HttpStatusCode.Created, result);
             return response;
         }

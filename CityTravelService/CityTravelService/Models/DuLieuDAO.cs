@@ -28,9 +28,9 @@ namespace CityTravelService.Models
             return arr;
         }
 
-        public List<DuLieu> getDuLieu(int MaTenDiaDiem)
+        public List<DuLieu> getDuLieu(int MaTenDiaDiem, SqlConnection connection)
         {
-            connect();
+          
             string query = "SELECT * FROM DULIEU WHERE MaTenDiaDiem = " + MaTenDiaDiem;
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();

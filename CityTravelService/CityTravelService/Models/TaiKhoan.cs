@@ -18,6 +18,7 @@ namespace CityTravelService.Models
         public string Picture { set; get; }
         public string Role { get; set; }
         public int IdUser { get; set; }
+        public string Provider { get; set; }
 
 
     }

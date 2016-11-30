@@ -14,19 +14,19 @@ namespace CityTravelService.Controllers
     {
         public bool Test()
         {
-            if (HttpContext.Current.Session.Count == 0 || HttpContext.Current.Session["UserOnline"] == null)
-            {
-                return false;
-            }
+            //if (HttpContext.Current.Session.Count == 0 || HttpContext.Current.Session["UserOnline"] == null)
+            //{
+            //    return false;
+            //}
             return true;
         }
         // GET: api/DichVu
         public IEnumerable<DichVu> Get()
         {
-            //if (Test() == false)
-            //{
-            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            //}
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
             DichVuDAO dvO = new DichVuDAO();
 
             DichVu[] dv = new DichVu[dvO.getDsDichVu().Count];
@@ -37,10 +37,10 @@ namespace CityTravelService.Controllers
         // GET: api/DichVu/5
         public IEnumerable<DichVu> Get(int id)
         {
-            //if (Test() == false)
-            //{
-            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            //}
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
             DichVuDAO dvO = new DichVuDAO();
 
             DichVu[] dv = new DichVu[dvO.getDsDichVu(id).Count];

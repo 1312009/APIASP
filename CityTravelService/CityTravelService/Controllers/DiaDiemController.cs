@@ -11,10 +11,10 @@ namespace CityTravelService.Controllers
     {
         public bool Test()
         {
-            if (HttpContext.Current.Session.Count == 0 || HttpContext.Current.Session["UserOnline"] == null)
-            {
-                return false;
-            }
+            //if (HttpContext.Current.Session.Count == 0 || HttpContext.Current.Session["UserOnline"] == null)
+            //{
+            //    return false;
+            //}
             return true;
         }
         // POST: api/DiaDiem
@@ -42,10 +42,10 @@ namespace CityTravelService.Controllers
         // GET: api/DiaDiem
         public IEnumerable<DiaDiem> Get()
         {
-            //if (Test() == false)
-            //{
-            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            //}
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
             try
             {
                 DiaDiemDAO ddO = new DiaDiemDAO();
@@ -62,10 +62,10 @@ namespace CityTravelService.Controllers
 
         public HttpResponseMessage Get(string str)
         {
-            //if (Test() == false)
-            //{
-            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            //}
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
             try
             {
                 DiaDiemDAO ddO = new DiaDiemDAO();

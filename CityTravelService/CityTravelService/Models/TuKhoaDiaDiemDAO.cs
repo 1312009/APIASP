@@ -124,12 +124,12 @@ namespace CityTravelService.Models
             disconnect();
         }
 
-        public void deleteTuKhoaDiaDiemByMaDiaDiem(int maDD)
+        public void deleteTuKhoaDiaDiemByMaDiaDiem(int maDD, SqlConnection connection)
         {
-            connect();
-            string deleteCommand = "DELETE FROM TUKHOADIADIEM WHERE MaDiaDiem = " + maDD;
+            this.connection = connection;
+            string deleteCommand = "DELETE FROM TUKHOADIADIEM WHERE MaTenDiaDiem = " + maDD;
             executeNonQuery(deleteCommand);
-            disconnect();
+          
         }
 
     }

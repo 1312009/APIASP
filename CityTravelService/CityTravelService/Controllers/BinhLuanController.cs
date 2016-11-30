@@ -10,9 +10,12 @@ using System.Web.Http;
 namespace CityTravelServer.Controllers
 {
     //[Auth(PerMissionName = "Admin")]
+    [RoutePrefix("api/BinhLuan")]
     public class BinhLuanController : ApiController
     {
         // GET: api/BinhLuan
+        [Route("")]
+        [HttpGet]
         public IEnumerable<BinhLuan> Get()
         {
             BinhLuanDAO blO = new BinhLuanDAO();
@@ -21,7 +24,8 @@ namespace CityTravelServer.Controllers
             bl = blO.getDsBinhLuan().ToArray();
             return bl;
         }
-
+        [Route("")]
+        [HttpGet]
         // GET: api/BinhLuan/5
         public IEnumerable<BinhLuan> Get(string id)
         {
@@ -35,19 +39,23 @@ namespace CityTravelServer.Controllers
         }
 
         // POST: api/BinhLuan
+        [Route("")]
+        [HttpPost]
         public void Post([FromBody]BinhLuan bl)
         {
             BinhLuanDAO blO = new BinhLuanDAO();
             blO.insertBinhLuan(bl);
         }
-
+        [Route("")]
+        [HttpPut]
         // PUT: api/BinhLuan/5
         public void Put([FromBody]string bl)
         {
             BinhLuanDAO bl0 = new BinhLuanDAO();
             bl0.updateBinhLuan(bl);
         }
-
+        [Route("")]
+        [HttpDelete]
         // DELETE: api/BinhLuan/5
         public void Delete(string id)
         {

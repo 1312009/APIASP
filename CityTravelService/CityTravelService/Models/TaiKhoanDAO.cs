@@ -47,10 +47,10 @@ namespace CityTravelService.Models
             return arr;
         }
 
-        public int getTaiKhoan(string email)
+        public int getTaiKhoan(string email , string provider)
         {
             connect();
-            string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + email + "'";
+            string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + email + "' AND NhaCungCap = '" + provider + "'";
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
@@ -66,7 +66,7 @@ namespace CityTravelService.Models
             return arr.IdUser;
         }
 
-        public TaiKhoan getTaiKhoan(string email, string password)
+        public TaiKhoan getTaiKhoan(string email, string password , string provider)
         {
             string result = "Null";
             if(string.IsNullOrEmpty(email)&& string.IsNullOrEmpty(password)&&
@@ -91,7 +91,7 @@ namespace CityTravelService.Models
             }
 
             connect();
-            string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + email + "' AND MatKhau = '" + password + "'";
+            string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + email + "' AND MatKhau = '" + password + "'" + "' AND NhaCungCap = '" + provider + "'";
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
@@ -144,6 +144,7 @@ namespace CityTravelService.Models
             tk.Picture = dt.Rows[i]["Hinh"].ToString();
             tk.Role = dt.Rows[i]["Role"].ToString();
             tk.IdUser = dt.Rows[i].IsNull("IdUser") ? 0 : (int)dt.Rows[i]["IdUser"];
+            tk.Provider = dt.Rows[i]["NhaCungCap"].ToString();
             return (object)tk;
         }
 
@@ -162,7 +163,8 @@ namespace CityTravelService.Models
                     tk.Birth.Year + "-" + tk.Birth.Month + "-" + tk.Birth.Day + "', N'" +
                     tk.Address + "', '" +
                     tk.Picture +"', '" +
-                    tk.Role + "')";
+                    tk.Role + "', '" +
+                    tk.Provider + "')";
                 executeNonQuery(insertCommand);
                 disconnect();
                 return true;
@@ -190,6 +192,7 @@ namespace CityTravelService.Models
                     "', Hinh = '" + tk.Picture +
                       "', Role = '" + tk.Role + 
                     "', IdUser = " + tk.IdUser +
+                    "', NhaCungCap = " + tk.Provider +
                     " WHERE IdUser = " + tk.IdUser;
                 executeNonQuery(updateCommand);
                 disconnect();

@@ -13,10 +13,10 @@ namespace CityTravelService.Controllers
     {
         public bool Test()
         {
-            if (HttpContext.Current.Session.Count == 0 || HttpContext.Current.Session["UserOnline"] == null)
-            {
-                return false;
-            }
+            //if (HttpContext.Current.Session.Count == 0 || HttpContext.Current.Session["UserOnline"] == null)
+            //{
+            //    return false;
+            //}
             return true;
         }
         // GET api/tukhoadichvu
