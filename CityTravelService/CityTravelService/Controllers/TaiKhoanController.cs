@@ -76,6 +76,15 @@ namespace CityTravelService.Controllers
             tk = tkO.getTaiKhoan(email, password, provider);
             return tk;
         }
+        [Route("")]
+        [HttpGet]
+        public TaiKhoan Get(string email, string provider)
+        {
+            TaiKhoanDAO tkO = new TaiKhoanDAO();
+            TaiKhoan tk;
+            tk = tkO.getTaiKhoan(email, provider);
+            return tk;
+        }
         #endregion
 
         #region POST

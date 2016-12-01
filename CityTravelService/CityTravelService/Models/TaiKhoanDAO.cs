@@ -47,7 +47,7 @@ namespace CityTravelService.Models
             return arr;
         }
 
-        public int getTaiKhoan(string email , string provider)
+        public TaiKhoan getTaiKhoan(string email , string provider)
         {
             connect();
             string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + email + "' AND NhaCungCap = '" + provider + "'";
@@ -63,7 +63,7 @@ namespace CityTravelService.Models
             }
 
             disconnect();
-            return arr.IdUser;
+            return arr;
         }
 
         public TaiKhoan getTaiKhoan(string email, string password , string provider)
