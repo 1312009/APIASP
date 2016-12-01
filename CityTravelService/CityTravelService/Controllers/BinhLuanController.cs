@@ -40,10 +40,10 @@ namespace CityTravelServer.Controllers
         // POST: api/BinhLuan
         [Route("")]
         [HttpPost]
-        public void Post(BinhLuan bl)
+        public bool Post(BinhLuan bl)
         {
             BinhLuanDAO blO = new BinhLuanDAO();
-            blO.insertBinhLuan(bl);
+            return blO.insertBinhLuan(bl);
         }
         [Route("")]
         [HttpPut]
