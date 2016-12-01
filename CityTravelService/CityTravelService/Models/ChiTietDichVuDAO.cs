@@ -15,7 +15,7 @@ namespace CityTravelService.Models
         public List<ChiTietDichVu> get_All_ChiTiet_DichVu()
         {
             connect();
-            string query = @"select * from CHITIET_DULIEU";
+            string query = @"select a.MaDuLieu, a.MaChiTiet, b.Ten, b.GiaTien, b.ChuThich from CHITIET_DULIEU a join CHITIETDICHVU b on (a.MaChiTiet = b.MaChiTiet)";
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
@@ -30,7 +30,7 @@ namespace CityTravelService.Models
         public List<ChiTietDichVu> get_ChiTiet_DichVu(int ma_dulieu)
         {
             connect();
-            string query = string.Format("select * where MaDuLieu = {0}", ma_dulieu);
+            string query = string.Format(" select a.MaDuLieu, a.MaChiTiet, b.Ten, b.GiaTien, b.ChuThich from CHITIET_DULIEU a join CHITIETDICHVU b on (a.MaChiTiet = b.MaChiTiet) where a.MaDuLieu = {0}", ma_dulieu);
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
@@ -97,6 +97,9 @@ namespace CityTravelService.Models
             ChiTietDichVu chitiet_dulieu = new ChiTietDichVu();
             chitiet_dulieu.ma_dulieu = (int)dt.Rows[i]["MaDuLieu"];
             chitiet_dulieu.ma_chitiet = (int)dt.Rows[i]["MaChiTiet"];
+            chitiet_dulieu.ten = dt.Rows[i]["Ten"].ToString();
+            chitiet_dulieu.gia_tien = (int)dt.Rows[i]["GiaTien"];
+            chitiet_dulieu.chu_thich = dt.Rows[i]["ChuThich"].ToString();
             return (object)chitiet_dulieu;
         }
         

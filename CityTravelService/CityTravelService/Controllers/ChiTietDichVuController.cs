@@ -16,10 +16,10 @@ namespace CityTravelService.Controllers
         ChiTietDichVuDAO ChiTiet_DichVu;
         public bool Test()
         {
-            //if (HttpContext.Current.Session.Count == 0 || HttpContext.Current.Session["UserOnline"] == null)
-            //{
-            //    return false;
-            //}
+            if (HttpContext.Current.Session.Count == 0 || HttpContext.Current.Session["UserOnline"] == null)
+            {
+                return false;
+            }
             return true;
         }
         // GET api/chitietdulieu
@@ -27,10 +27,10 @@ namespace CityTravelService.Controllers
         [HttpGet]
         public IEnumerable<ChiTietDichVu> Get_All_DanhSach_DichVu()
         {
-            if (Test() == false)
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            }
+            //if (Test() == false)
+            //{
+            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            //}
             ChiTiet_DichVu = new ChiTietDichVuDAO();
             ChiTietDichVu[] chitiet = new ChiTietDichVu[ChiTiet_DichVu.get_All_ChiTiet_DichVu().Count];
             chitiet = ChiTiet_DichVu.get_All_ChiTiet_DichVu().ToArray();
@@ -42,10 +42,10 @@ namespace CityTravelService.Controllers
         [HttpGet]
         public IEnumerable<ChiTietDichVu> Get_DanhSach_DichVu(int ma_dulieu)
         {
-            if (Test() == false)
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            }
+            //if (Test() == false)
+            //{
+            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            //}
             ChiTiet_DichVu = new ChiTietDichVuDAO();
             ChiTietDichVu[] chitiet = new ChiTietDichVu[ChiTiet_DichVu.get_ChiTiet_DichVu(ma_dulieu).Count];
             chitiet = ChiTiet_DichVu.get_ChiTiet_DichVu(ma_dulieu).ToArray();
@@ -58,10 +58,10 @@ namespace CityTravelService.Controllers
         [HttpPost]
         public HttpResponseMessage Post([FromBody]ChiTietDichVu value)
         {
-            if (Test() == false)
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            }
+            //if (Test() == false)
+            //{
+            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            //}
             ChiTiet_DichVu = new ChiTietDichVuDAO();
             bool ret = ChiTiet_DichVu.insert_ChiTiet_DichVu(value);
             var response = Request.CreateResponse<bool>(HttpStatusCode.Created, ret);

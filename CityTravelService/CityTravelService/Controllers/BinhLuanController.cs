@@ -40,26 +40,26 @@ namespace CityTravelServer.Controllers
         // POST: api/BinhLuan
         [Route("")]
         [HttpPost]
-        public bool Post([FromBody]BinhLuan bl)
+        public void Post([FromBody]BinhLuan bl)
         {
             BinhLuanDAO blO = new BinhLuanDAO();
-            return blO.insertBinhLuan(bl);
+            blO.insertBinhLuan(bl);
         }
         [Route("")]
         [HttpPut]
         // PUT: api/BinhLuan/5
-        public bool Put(string bl)
+        public void Put([FromBody]string bl)
         {
             BinhLuanDAO bl0 = new BinhLuanDAO();
-           return bl0.updateBinhLuan(bl);
+            bl0.updateBinhLuan(bl);
         }
         [Route("")]
         [HttpDelete]
         // DELETE: api/BinhLuan/5
-        public bool Delete(string id)
+        public void Delete(string id)
         {
             BinhLuanDAO blO = new BinhLuanDAO();
-            return blO.deleteBinhLuan(id);
+            blO.deleteBinhLuan(id);
         }
     }
 }
