@@ -107,10 +107,10 @@ namespace CityTravelService.Controllers
         [HttpPut]
         public bool Put([FromBody]TaiKhoan tk)
         {
-            if (Test() == false)
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)); return false;
-            }
+            //if (Test() == false)
+            //{
+            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)); return false;
+            //}
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             //tkO.updateTaiKhoan(tk);
             /*var response = Request.CreateResponse<TaiKhoan>(HttpStatusCode.Created, tk);
@@ -121,10 +121,10 @@ namespace CityTravelService.Controllers
         [HttpPut]
         public bool  ChangPassword(int IdUser,string passwordold,string passwordnew)
         {
-            if (Test() == false)
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            }
+            //if (Test() == false)
+            //{
+            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            //}
             TaiKhoanDAO tk0 = new TaiKhoanDAO();
             return tk0.changePassword(IdUser, passwordold, passwordnew);
 
@@ -136,10 +136,10 @@ namespace CityTravelService.Controllers
         [HttpDelete]
         public bool Delete(int id)
         {
-            if (Test() == false)
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            }
+            //if (Test() == false)
+            //{
+            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            //}
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             TaiKhoan tk = new TaiKhoan();
             tk = tkO.getTaiKhoan(id);
@@ -164,11 +164,10 @@ namespace CityTravelService.Controllers
             client.Send(mailMessag);
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             TaiKhoan tk = new TaiKhoan();
-            int id = tkO.getTaiKhoan(email, provider);
-            tk = tkO.getTaiKhoan(id);
-            if (tk==null)
+            tk = tkO.getTaiKhoan(email, provider);
+            if (tk.IdUser==null)
                 return false;
-            tkO.updatePassword(temp, id);
+            tkO.updatePassword(temp, tk.IdUser);
             return true;
         }
         public string CreatePassword()
