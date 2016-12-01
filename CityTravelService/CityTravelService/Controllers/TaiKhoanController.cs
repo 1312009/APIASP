@@ -143,7 +143,7 @@ namespace CityTravelService.Controllers
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             TaiKhoan tk = new TaiKhoan();
             tk = tkO.getTaiKhoan(id);
-            if (tk == null)
+            if (tk.IdUser == null)
                 return false;
             /*throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));*/
             return tkO.deleteTaiKhoan(id); //False: Khi no la khoa ngoại.

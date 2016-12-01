@@ -321,6 +321,10 @@ namespace CityTravelService.Models
             try
             {
                 connect();
+                string deletecommand1= "DELETE FROM BINHLUAN WHERE IdUser = " + id;
+                executeNonQuery(deletecommand1);
+                string deletecommand2= "DELETE FROM DANHGIA WHERE IdUser = " + id;
+                executeNonQuery(deletecommand2);
                 string deleteCommand = "DELETE FROM TAIKHOAN WHERE IdUser = " + id;
                 executeNonQuery(deleteCommand);
                 disconnect();
