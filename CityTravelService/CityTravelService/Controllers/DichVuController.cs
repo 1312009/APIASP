@@ -9,7 +9,7 @@ using CityTravelService.Session;
 using System.Web;
 
 namespace CityTravelService.Controllers
-{
+{   [RoutePrefix("api/DichVu")]
     public class DichVuController : ApiController
     {
         public bool Test()
@@ -20,6 +20,8 @@ namespace CityTravelService.Controllers
             //}
             return true;
         }
+        [Route("")]
+        [HttpGet]
         // GET: api/DichVu
         public IEnumerable<DichVu> Get()
         {
@@ -33,7 +35,8 @@ namespace CityTravelService.Controllers
             dv = dvO.getDsDichVu().ToArray();
             return dv;
         }
-
+        [Route("")]
+        [HttpGet]
         // GET: api/DichVu/5
         public IEnumerable<DichVu> Get(int id)
         {
@@ -52,7 +55,9 @@ namespace CityTravelService.Controllers
 
         // POST: api/DichVu
         //[Auth(PerMissionName = "Admin")]
-        public void Post([FromBody]DichVu dv)
+        [Route("")]
+        [HttpPost]
+        public void Post(DichVu dv)
         {
             DichVuDAO dv0 = new DichVuDAO();
             dv0.insertDichVu(dv);
@@ -70,7 +75,9 @@ namespace CityTravelService.Controllers
 
         // PUT: api/DichVu/5
         //[Auth(PerMissionName = "Admin")]
-        public void Put([FromBody]DichVu dv)
+        [Route("")]
+        [HttpPut]
+        public void Put(DichVu dv)
         {
             DichVuDAO dv0 = new DichVuDAO();
             dv0.updateDichVu(dv);
@@ -78,6 +85,8 @@ namespace CityTravelService.Controllers
 
         // DELETE: api/DichVu/5
         //[Auth(PerMissionName = "Admin")]
+        [Route("")]
+        [HttpDelete]
         public void Delete(int id)
         {
             DichVuDAO dv0 = new DichVuDAO();
