@@ -153,8 +153,6 @@ namespace CityTravelService.Models
             try
             {
                 connect();
-                if(tk.Provider=="Local")
-                {
                     string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + tk.Email + "' AND NhaCungCap = '" + tk.Provider + "'";
                     adapter = new SqlDataAdapter(query, connection);
                     DataSet dataset = new DataSet();
@@ -170,7 +168,7 @@ namespace CityTravelService.Models
                     {
                         return false;
                     }
-                }
+                
                 string insertCommand = "INSERT INTO TAIKHOAN VALUES('" +
                     tk.Email + "', '" +
                     tk.PassWord + "', N'" +
@@ -198,8 +196,7 @@ namespace CityTravelService.Models
             try
             {
                 connect();
-                if (tk.Provider == "Local")
-                {
+               
                     string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + tk.Email + "' AND NhaCungCap = '" + tk.Provider + "'";
                     adapter = new SqlDataAdapter(query, connection);
                     DataSet dataset = new DataSet();
@@ -215,7 +212,7 @@ namespace CityTravelService.Models
                     {
                         return false;
                     }
-                }
+                
                 string updateCommand = "UPDATE TAIKHOAN SET Email = '" + tk.Email +
                     "', MatKhau = '" + tk.PassWord +
                     "', Ho = N'" + tk.LastName +
@@ -243,9 +240,24 @@ namespace CityTravelService.Models
             try
             {
                 connect();
-                string updateCommand = "UPDATE TAIKHOAN SET MatKhau = '" + pass +
-                    "' WHERE IdUser = " + id;
-                executeNonQuery(updateCommand);
+                string query = "SELECT * FROM TAIKHOAN WHERE IdUser = " + id;
+                adapter = new SqlDataAdapter(query, connection);
+                DataSet dataset = new DataSet();
+                adapter.Fill(dataset);
+                ArrayList ls = ConvertDataSetToArrayList(dataset);
+                TaiKhoan arr = new TaiKhoan();
+                foreach (Object o in ls)
+                {
+                    arr = (TaiKhoan)o;
+                    break;
+                }
+                if(arr.Provider=="Local")
+                {
+                    string updateCommand = "UPDATE TAIKHOAN SET MatKhau = '" + pass +
+                                       "' WHERE IdUser = " + id;
+                    executeNonQuery(updateCommand);
+                }
+               
                 disconnect();
                 return true;
             }
@@ -260,7 +272,7 @@ namespace CityTravelService.Models
             try
             {
                 connect();
-                string query = "SELECT * FROM TAIKHOAN WHERE IdUser = " + IdUser + " AND MatKhau = '" + passwordold + "'";
+                string query = "SELECT * FROM TAIKHOAN WHERE IdUser = " + IdUser;
                 adapter = new SqlDataAdapter(query, connection);
                 DataSet dataset = new DataSet();
                 adapter.Fill(dataset);
@@ -269,18 +281,34 @@ namespace CityTravelService.Models
                 foreach (Object o in ls)
                 {
                     arr = (TaiKhoan)o;
+                    break;
                 }
-                if (arr.IdUser != 0)
+                if (arr.Provider == "Local")
                 {
-                    string updateCommand = "UPDATE TAIKHOAN SET MatKhau = '" + passwordnew +
-                       "' WHERE IdUser = " + IdUser;
-                    executeNonQuery(updateCommand);
-                    disconnect();
+                    query = "SELECT * FROM TAIKHOAN WHERE IdUser = " + IdUser + " AND MatKhau = '" + passwordold + "'";
+                    adapter = new SqlDataAdapter(query, connection);
+                    dataset = new DataSet();
+                    adapter.Fill(dataset);
+                    ls = new ArrayList();
+                    ls = ConvertDataSetToArrayList(dataset);
+                    arr = new TaiKhoan();
+                    foreach (Object o in ls)
+                    {
+                        arr = (TaiKhoan)o;
+                    }
+                    if (arr.IdUser != 0)
+                    {
+                        string updateCommand = "UPDATE TAIKHOAN SET MatKhau = '" + passwordnew +
+                           "' WHERE IdUser = " + IdUser;
+                        executeNonQuery(updateCommand);
+                        disconnect();
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
-                else
-                {
-                    return false;
-                }
+              
             }
             catch
             {
