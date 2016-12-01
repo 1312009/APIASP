@@ -251,7 +251,7 @@ namespace CityTravelService.Models
                     arr = (TaiKhoan)o;
                     break;
                 }
-                if(arr.Provider=="Local")
+                if(arr.Provider=="local")
                 {
                     string updateCommand = "UPDATE TAIKHOAN SET MatKhau = '" + pass +
                                        "' WHERE IdUser = " + id;
@@ -283,7 +283,7 @@ namespace CityTravelService.Models
                     arr = (TaiKhoan)o;
                     break;
                 }
-                if (arr.Provider == "Local")
+                if (arr.Provider == "local")
                 {
                     query = "SELECT * FROM TAIKHOAN WHERE IdUser = " + IdUser + " AND MatKhau = '" + passwordold + "'";
                     adapter = new SqlDataAdapter(query, connection);
