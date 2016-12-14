@@ -189,7 +189,7 @@ namespace CityTravelService.Models
                         arr = (TaiKhoan)o;
                         break;
                     }
-                    if (!string.IsNullOrEmpty(arr.Email))
+                    if (string.IsNullOrEmpty(arr.Email))
                     {
                         return false;
                     }
@@ -235,7 +235,7 @@ namespace CityTravelService.Models
                         arr = (TaiKhoan)o;
                         break;
                     }
-                    if (!string.IsNullOrEmpty(arr.Email))
+                    if (string.IsNullOrEmpty(arr.Email))
                     {
                         return null;
                     }
@@ -289,7 +289,7 @@ namespace CityTravelService.Models
                     arr = (TaiKhoan)o;
                     break;
                 }
-                if (!string.IsNullOrEmpty(arr.Email))
+                if (string.IsNullOrEmpty(arr.Email))
                 {
                     return false;
                 }
@@ -304,9 +304,8 @@ namespace CityTravelService.Models
                     "', DiaChi = N'" + tk.Address +
                     "', Hinh = '" + tk.Picture +
                       "', Role = '" + tk.Role +
-                    "', IdUser = " + tk.IdUser +
-                    "', NhaCungCap = " + tk.Provider +
-                    " WHERE IdUser = " + tk.IdUser;
+                    "', NhaCungCap = '" + tk.Provider +
+                    "' WHERE IdUser = " + tk.IdUser;
                 executeNonQuery(updateCommand);
                 disconnect();
                 return true;
