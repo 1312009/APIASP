@@ -28,10 +28,10 @@ namespace CityTravelService.Models
             return arr;
         }
 
-        public TaiKhoan getTaiKhoan(int id)
+        public TaiKhoanConvert getTaiKhoan(int id)
         {
             connect();
-            string query = "SELECT * FROM TAIKHOAN WHERE IdUser = " + id ;
+            string query = "SELECT * FROM TAIKHOAN WHERE IdUser = " + id;
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
@@ -44,10 +44,12 @@ namespace CityTravelService.Models
             }
 
             disconnect();
-            return arr;
+            TaiKhoanConvert temp = new TaiKhoanConvert();
+            temp = Convert(arr);
+            return temp;
         }
 
-        public TaiKhoan getTaiKhoan(string email , string provider)
+        public TaiKhoanConvert getTaiKhoan(string email, string provider)
         {
             connect();
             string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + email + "' AND NhaCungCap = '" + provider + "'";
@@ -63,18 +65,20 @@ namespace CityTravelService.Models
             }
 
             disconnect();
-            return arr;
+            TaiKhoanConvert temp = new TaiKhoanConvert();
+            temp = Convert(arr);
+            return temp;
         }
 
-        public TaiKhoan getTaiKhoan(string email, string password , string provider)
+        public TaiKhoanConvert getTaiKhoan(string email, string password, string provider)
         {
             string result = "Null";
-            if(string.IsNullOrEmpty(email)&& string.IsNullOrEmpty(password)&&
+            if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(password) &&
                 (HttpContext.Current.Session.Count == 0 || HttpContext.Current.Session["UserOnline"] == null))
             {
                 return null;
             }
-           
+
             if (HttpContext.Current.Session.Count > 0 && HttpContext.Current.Session["UserOnline"] != null && HttpContext.Current.Session["UserOnline"].ToString() == "On")
             {
                 string type = "";
@@ -108,26 +112,45 @@ namespace CityTravelService.Models
                 {
                     HttpContext.Current.Session["AccountId"] = arr.Email;
                     HttpContext.Current.Session["UserOnline"] = "On";
-                    if(arr.Role=="Admin")
+                    if (arr.Role == "Admin")
                     {
                         HttpContext.Current.Session["Auth"] = "Admin";
-                      
+
                     }
                     else
                     {
                         HttpContext.Current.Session["Auth"] = "Customer";
-                    
+
                     }
                 }
-                
+
             }
             catch (NotImplementedException implementedException)
             {
 
             }
-           
+
             disconnect();
-            return arr;
+            TaiKhoanConvert temp = new TaiKhoanConvert();
+            temp = Convert(arr);
+            return temp;
+        }
+        public TaiKhoanConvert Convert(TaiKhoan a)
+        {
+            TaiKhoanConvert temp = new TaiKhoanConvert();
+            temp.IdUser = a.IdUser;
+            temp.LastName = a.LastName;
+            temp.Address = a.Address;
+            temp.Birth = a.Birth.ToString("dd/MM/yyyy");
+            temp.Email = a.Email;
+            temp.FirtName = a.FirtName;
+            temp.PassWord = a.PassWord;
+            temp.Phone = a.Phone;
+            temp.Picture = a.Picture;
+            temp.Provider = a.Provider;
+            temp.Role = a.Role;
+            temp.Sex = a.Sex;
+            return temp;
         }
 
         protected override object GetDataFromDataRow(DataTable dt, int i)
@@ -153,50 +176,8 @@ namespace CityTravelService.Models
             try
             {
                 connect();
-                    string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + tk.Email + "' AND NhaCungCap = '" + tk.Provider + "'";
-                    adapter = new SqlDataAdapter(query, connection);
-                    DataSet dataset = new DataSet();
-                    adapter.Fill(dataset);
-                    ArrayList ls = ConvertDataSetToArrayList(dataset);
-                    TaiKhoan arr = new TaiKhoan();
-                    foreach (Object o in ls)
-                    {
-                        arr = (TaiKhoan)o;
-                        break;
-                    }
-                    if(!string.IsNullOrEmpty(arr.Email))
-                    {
-                        return false;
-                    }
-                
-                string insertCommand = "INSERT INTO TAIKHOAN VALUES('" +
-                    tk.Email + "', '" +
-                    tk.PassWord + "', N'" +
-                    tk.LastName + "', N'" +
-                    tk.FirtName + "', N'" +
-                    tk.Phone + "', " +
-                    tk.Sex + ", '" +
-                    tk.Birth.Year + "-" + tk.Birth.Month + "-" + tk.Birth.Day + "', N'" +
-                    tk.Address + "', '" +
-                    tk.Picture +"', '" +
-                    tk.Role + "', '" +
-                    tk.Provider + "')";
-                executeNonQuery(insertCommand);
-                disconnect();
-                return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-        }
-
-        public bool updateTaiKhoan(TaiKhoan tk)
-        {
-            try
-            {
-                connect();
-               
+                if (tk.Provider == "Local")
+                {
                     string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + tk.Email + "' AND NhaCungCap = '" + tk.Provider + "'";
                     adapter = new SqlDataAdapter(query, connection);
                     DataSet dataset = new DataSet();
@@ -212,7 +193,107 @@ namespace CityTravelService.Models
                     {
                         return false;
                     }
-                
+                }
+                string insertCommand = "INSERT INTO TAIKHOAN VALUES('" +
+                    tk.Email + "', '" +
+                    tk.PassWord + "', N'" +
+                    tk.LastName + "', N'" +
+                    tk.FirtName + "', N'" +
+                    tk.Phone + "', " +
+                    tk.Sex + ", '" +
+                    tk.Birth.Year + "-" + tk.Birth.Month + "-" + tk.Birth.Day + "', N'" +
+                    tk.Address + "', '" +
+                    tk.Picture + "', '" +
+                    tk.Role + "', '" +
+                    tk.Provider + "')";
+                executeNonQuery(insertCommand);
+                disconnect();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+
+        public TaiKhoan insert_TaiKhoan(TaiKhoan tk)
+        {
+            try
+            {
+                connect();
+                if (tk.Provider == "Local")
+                {
+                    string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + tk.Email + "' AND NhaCungCap = '" + tk.Provider + "'";
+                    adapter = new SqlDataAdapter(query, connection);
+                    DataSet dataset = new DataSet();
+                    adapter.Fill(dataset);
+                    ArrayList ls = ConvertDataSetToArrayList(dataset);
+                    TaiKhoan arr = new TaiKhoan();
+                    foreach (Object o in ls)
+                    {
+                        arr = (TaiKhoan)o;
+                        break;
+                    }
+                    if (!string.IsNullOrEmpty(arr.Email))
+                    {
+                        return null;
+                    }
+                }
+                string insertCommand = "INSERT INTO TAIKHOAN VALUES('" +
+                    tk.Email + "', '" +
+                    tk.PassWord + "', N'" +
+                    tk.LastName + "', N'" +
+                    tk.FirtName + "', N'" +
+                    tk.Phone + "', " +
+                    tk.Sex + ", '" +
+                    tk.Birth.Year + "-" + tk.Birth.Month + "-" + tk.Birth.Day + "', N'" +
+                    tk.Address + "', '" +
+                    tk.Picture + "', '" +
+                    tk.Role + "', '" +
+                    tk.Provider + "')";
+                executeNonQuery(insertCommand);
+                string cmd = "SELECT * FROM TAIKHOAN WHERE Email = '" + tk.Email + "' AND NhaCungCap = '" + tk.Provider + "'";
+                adapter = new SqlDataAdapter(cmd, connection);
+                DataSet ds = new DataSet();
+                adapter.Fill(ds);
+                ArrayList list = ConvertDataSetToArrayList(ds);
+                TaiKhoan taikhoan = new TaiKhoan();
+                foreach (Object o in list)
+                {
+                    taikhoan = (TaiKhoan)o;
+                    break;
+                }
+                disconnect();
+                return taikhoan;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        public bool updateTaiKhoan(TaiKhoan tk)
+        {
+            try
+            {
+                connect();
+
+                string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + tk.Email + "' AND NhaCungCap = '" + tk.Provider + "'";
+                adapter = new SqlDataAdapter(query, connection);
+                DataSet dataset = new DataSet();
+                adapter.Fill(dataset);
+                ArrayList ls = ConvertDataSetToArrayList(dataset);
+                TaiKhoan arr = new TaiKhoan();
+                foreach (Object o in ls)
+                {
+                    arr = (TaiKhoan)o;
+                    break;
+                }
+                if (!string.IsNullOrEmpty(arr.Email))
+                {
+                    return false;
+                }
+
                 string updateCommand = "UPDATE TAIKHOAN SET Email = '" + tk.Email +
                     "', MatKhau = '" + tk.PassWord +
                     "', Ho = N'" + tk.LastName +
@@ -222,7 +303,7 @@ namespace CityTravelService.Models
                     ", NgaySinh = '" + tk.Birth.Year + "-" + tk.Birth.Month + "-" + tk.Birth.Day +
                     "', DiaChi = N'" + tk.Address +
                     "', Hinh = '" + tk.Picture +
-                      "', Role = '" + tk.Role + 
+                      "', Role = '" + tk.Role +
                     "', IdUser = " + tk.IdUser +
                     "', NhaCungCap = " + tk.Provider +
                     " WHERE IdUser = " + tk.IdUser;
@@ -251,13 +332,13 @@ namespace CityTravelService.Models
                     arr = (TaiKhoan)o;
                     break;
                 }
-                if(arr.Provider=="local")
+                if (arr.Provider == "local")
                 {
                     string updateCommand = "UPDATE TAIKHOAN SET MatKhau = '" + pass +
                                        "' WHERE IdUser = " + id;
                     executeNonQuery(updateCommand);
                 }
-               
+
                 disconnect();
                 return true;
             }
@@ -267,7 +348,7 @@ namespace CityTravelService.Models
             }
         }
 
-        public bool changePassword(int IdUser,string passwordold,string passwordnew)
+        public bool changePassword(int IdUser, string passwordold, string passwordnew)
         {
             try
             {
@@ -308,7 +389,7 @@ namespace CityTravelService.Models
                         return false;
                     }
                 }
-              
+
             }
             catch
             {
@@ -321,15 +402,16 @@ namespace CityTravelService.Models
             try
             {
                 connect();
-                string deletecommand1= "DELETE FROM BINHLUAN WHERE IdUser = " + id;
+                string deletecommand1 = "DELETE FROM BINHLUAN WHERE IdUser = " + id;
                 executeNonQuery(deletecommand1);
-                string deletecommand2= "DELETE FROM DANHGIA WHERE IdUser = " + id;
+                string deletecommand2 = "DELETE FROM DANHGIA WHERE IdUser = " + id;
                 executeNonQuery(deletecommand2);
                 string deleteCommand = "DELETE FROM TAIKHOAN WHERE IdUser = " + id;
                 executeNonQuery(deleteCommand);
                 disconnect();
                 return true;
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return false;
             }

@@ -226,7 +226,7 @@ namespace CityTravelService.Models
 
             dd.tinhthanh.MaTinhThanh = dt.Rows[i].IsNull("MaTinhThanh") == true ? 0 : (int)dt.Rows[i]["MaTinhThanh"];
             dd.tinhthanh.TenTinhThanh = dt.Rows[i]["TenTinhThanh"].ToString();
-
+            dd.SoNha = dt.Rows[i]["SoNha"].ToString();
             dd.KinhDo = dt.Rows[i].IsNull("KinhDo") == true ? 0.0d : (double)dt.Rows[i]["KinhDo"];
             dd.ViDo = dt.Rows[i].IsNull("ViDo") == true ? 0.0d : (double)dt.Rows[i]["ViDo"];
             dd.ChuThich = dt.Rows[i]["ChuThich"].ToString();

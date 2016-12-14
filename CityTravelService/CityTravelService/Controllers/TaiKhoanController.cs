@@ -51,14 +51,14 @@ namespace CityTravelService.Controllers
         // GET: api/TaiKhoan/5
         [Route("")]
         [HttpGet]
-        public TaiKhoan Get(int IdUser)
+        public TaiKhoanConvert Get(int IdUser)
         {
             if (Test() == false)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
             TaiKhoanDAO tkO = new TaiKhoanDAO();
-            TaiKhoan tk = new TaiKhoan();
+            TaiKhoanConvert tk = new TaiKhoanConvert();
             tk =tkO.getTaiKhoan(IdUser);
             //if (tk.Length == 0)
             //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
@@ -69,19 +69,19 @@ namespace CityTravelService.Controllers
         // GET: 
         [Route("")]
         [HttpGet]
-        public TaiKhoan Get(string email, string password, string provider)
+        public TaiKhoanConvert Get(string email, string password, string provider)
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
-            TaiKhoan tk;
+            TaiKhoanConvert tk=new TaiKhoanConvert();
             tk = tkO.getTaiKhoan(email, password, provider);
             return tk;
         }
         [Route("")]
         [HttpGet]
-        public TaiKhoan Get(string email, string provider)
+        public TaiKhoanConvert Get(string email, string provider)
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
-            TaiKhoan tk;
+            TaiKhoanConvert tk=new TaiKhoanConvert();
             tk = tkO.getTaiKhoan(email, provider);
             return tk;
         }
@@ -98,6 +98,13 @@ namespace CityTravelService.Controllers
             /*var response = Request.CreateResponse<TaiKhoan>(HttpStatusCode.Created, tk);
             response.Headers.Location = new System.Uri(Request.RequestUri, "/api/TaiKhoan/" + tk.Email.ToString());*/
             return tkO.insertTaiKhoan(tk);
+        }
+		[Route("Insert")]
+        [HttpPost]
+        public TaiKhoan Post_Account([FromBody]TaiKhoan tk)
+        {
+            TaiKhoanDAO tkO = new TaiKhoanDAO();
+            return tkO.insert_TaiKhoan(tk);
         }
         #endregion
 
@@ -141,7 +148,7 @@ namespace CityTravelService.Controllers
             //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             //}
             TaiKhoanDAO tkO = new TaiKhoanDAO();
-            TaiKhoan tk = new TaiKhoan();
+            TaiKhoanConvert tk = new TaiKhoanConvert();
             tk = tkO.getTaiKhoan(id);
             if (tk.IdUser == null)
                 return false;
@@ -163,7 +170,7 @@ namespace CityTravelService.Controllers
             SmtpClient client = new SmtpClient();
             client.Send(mailMessag);
             TaiKhoanDAO tkO = new TaiKhoanDAO();
-            TaiKhoan tk = new TaiKhoan();
+            TaiKhoanConvert tk = new TaiKhoanConvert();
             tk = tkO.getTaiKhoan(email, provider);
             if (tk.IdUser==null)
                 return false;

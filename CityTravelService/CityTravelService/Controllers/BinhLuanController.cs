@@ -42,6 +42,7 @@ namespace CityTravelServer.Controllers
         [HttpPost]
         public bool Post(BinhLuan bl)
         {
+           
             BinhLuanDAO blO = new BinhLuanDAO();
             return blO.insertBinhLuan(bl);
         }

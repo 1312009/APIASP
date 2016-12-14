@@ -47,7 +47,7 @@ namespace CityTravelServer.Models
         protected override object GetDataFromDataRow(DataTable dt, int i)
         {
             BinhLuan bl = new BinhLuan();
-            bl.MaBinhLuan = dt.Rows[i]["MaBinhLuan"].ToString();
+            bl.MaBinhLuan =(int)dt.Rows[i]["MaBinhLuan"];
             bl.IdUser = dt.Rows[i].IsNull("IdUser") ? 0 : (int)dt.Rows[i]["IdUser"];
             bl.NoiDung = dt.Rows[i]["NoiDung"].ToString();
             bl.ThoiGian = (DateTime)dt.Rows[i]["ThoiGian"];
@@ -63,8 +63,7 @@ namespace CityTravelServer.Models
             {
                 connect();
                 string insertCommand = "INSERT INTO BINHLUAN VALUES(" +
-                    bl.MaDuLieu + ", '" +
-                    bl.MaBinhLuan + "', " +
+                    bl.MaDuLieu + ", " +
                     bl.IdUser + ", N'" +
                     bl.NoiDung + "', '" +
                     bl.ThoiGian.Year + "-" + bl.ThoiGian.Month + "-" + bl.ThoiGian.Day + " " + bl.ThoiGian.Hour + ":" + bl.ThoiGian.Minute + ":" + bl.ThoiGian.Second + "'," +

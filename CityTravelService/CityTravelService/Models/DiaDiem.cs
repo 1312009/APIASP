@@ -23,6 +23,7 @@
 
         public DiaDiem()
         {
+
             ten = new TenDiaDiem();
             dichvu = new DichVu();
             duong = new Duong();

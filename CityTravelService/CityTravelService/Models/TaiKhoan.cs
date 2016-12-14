@@ -22,4 +22,21 @@ namespace CityTravelService.Models
 
 
     }
+    public class TaiKhoanConvert
+    {
+        public string Email { set; get; }
+        public string PassWord { set; get; }
+        public string LastName { set; get; }
+        public string FirtName { set; get; }
+        public string Phone { set; get; }
+        public int Sex { set; get; }
+        public string Birth { set; get; }
+        public string Address { set; get; }
+        public string Picture { set; get; }
+        public string Role { get; set; }
+        public int IdUser { get; set; }
+        public string Provider { get; set; }
+
+
+    }
 }
