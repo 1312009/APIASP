@@ -120,9 +120,29 @@ namespace CityTravelService.Models
             try
             {
                 connect();
-                string updateCommand = "UPDATE DANHGIA SET DanhGia = " + dg.Rate +
-                    " WHERE IdUser = " + dg.IdUser + " AND MaDuLieu = " + dg.IDMaDL;
-                executeNonQuery(updateCommand);
+                string query = "SELECT * FROM DANHGIA WHERE IdUser = " + dg.IdUser + "AND MaDuLieu= " + dg.IDMaDL;
+                adapter = new SqlDataAdapter(query, connection);
+                DataSet dataset = new DataSet();
+                adapter.Fill(dataset);
+                ArrayList ls = ConvertDataSetToArrayList(dataset);
+                DanhGia arr = new DanhGia();
+                foreach (Object o in ls)
+                {
+                    arr = (DanhGia)o;
+                    break;
+                }
+                if (arr.IdUser == 0 && arr.IDMaDL ==0 && arr.Rate ==0)
+                {
+                    insertDanhGia(dg);
+                }
+                else
+                {
+                    string updateCommand = "UPDATE DANHGIA SET DanhGia = " + dg.Rate +
+                        " WHERE IdUser = " + dg.IdUser + " AND MaDuLieu = " + dg.IDMaDL;
+                    executeNonQuery(updateCommand);
+                }
+
+
                 disconnect();
                 return true;
             }
@@ -130,6 +150,20 @@ namespace CityTravelService.Models
             {
                 return false;
             }
+            //{
+            //    try
+            //    {
+            //        connect();
+            //        string updateCommand = "UPDATE DANHGIA SET DanhGia = " + dg.Rate +
+            //            " WHERE IdUser = " + dg.IdUser + " AND MaDuLieu = " + dg.IDMaDL;
+            //        executeNonQuery(updateCommand);
+            //        disconnect();
+            //        return true;
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        return false;
+            //    }
         }
 
         public void deleteDanhGia(int IdUser, int id)

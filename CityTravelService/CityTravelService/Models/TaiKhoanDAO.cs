@@ -189,7 +189,7 @@ namespace CityTravelService.Models
                         arr = (TaiKhoan)o;
                         break;
                     }
-                    if (string.IsNullOrEmpty(arr.Email))
+                    if (!string.IsNullOrEmpty(arr.Email))
                     {
                         return false;
                     }
@@ -235,7 +235,7 @@ namespace CityTravelService.Models
                         arr = (TaiKhoan)o;
                         break;
                     }
-                    if (string.IsNullOrEmpty(arr.Email))
+                    if (!string.IsNullOrEmpty(arr.Email))
                     {
                         return null;
                     }
