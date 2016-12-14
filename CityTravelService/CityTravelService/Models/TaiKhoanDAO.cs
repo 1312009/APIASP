@@ -237,7 +237,8 @@ namespace CityTravelService.Models
                     }
                     if (!string.IsNullOrEmpty(arr.Email))
                     {
-                        return null;
+						arr=new TaiKhoan();
+                        return arr;
                     }
                 }
                 string insertCommand = "INSERT INTO TAIKHOAN VALUES('" +
